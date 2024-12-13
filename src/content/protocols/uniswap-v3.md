@@ -28,21 +28,19 @@ The protocol is deployed across multiple chains enabling a wide range of use cas
 
 ## Chain
 
-Uniswap is deployed on Ethereum mainnet, Arbitrum, Optimism, Polygon, Base, BNB,
-Avalanche C-Chain, CELO, Blast, ZKsync, Zora, and WorldChain. This analysis is
-based on the contracts deployed on Ethereum mainnet.
+Uniswap v3 is deployed on various chains. This review is based on the Ethereum mainnet deployment of the protocol.
 
 > Chain score: L
 
 ## Upgradeability
 
-The Uniswap DAO can change parameters such as fees through the GorvernorBravoDelegator contract.
+The Uniswap DAO can change parameters such as fees through the `GorvernorBravoDelegator` contract.
 Apart from the fees set by the governance, the protocol's contracts are immutable. No party is able to pause, revert trade execution, or otherwise change the behavior of the protocol.
 
-No User funds nor unclaimed yield are affected by the upgradability.
+No User funds nor unclaimed yield are affected by the remaining permissions.
 
-Note that a TransparentProxy with the DAO as admin is used for the NonFungibleTokenPositionDescriptor, which is used for token descriptions.
-This should not impact the safety of the protocol.
+Note that a `TransparentProxy` with the DAO as admin is used for the `NonFungibleTokenPositionDescriptor`, which is used for token descriptions.
+However, this does not impact user funds or otherwise materially change the expected performance of the protocol.
 
 > Upgradeabillity score: L
 
@@ -54,7 +52,7 @@ There are no particular dependencies for the Uniswap protocol.
 
 ## Exit Window
 
-As the contracts are immutable the users can always withdraw their funds, but parameters such as protocol fees can be changed by the DAO. Propositions can be voted on over the duration of a week, and if a proposal is approved it can take effect between 2 and 30 days later.
+No "Medium" or "High" risk permissions are found in the protocol that require protection with an Exit Window, but parameters such as protocol fees can be changed by the DAO. Note that the permissions controlled by the DAO are protected with a 1-week on-chain voting window and 2 to 30 days Exit Window for approved updates.
 
 > Exit score: L
 
@@ -107,18 +105,18 @@ the frontend app is also hosted on IPFS see here https://github.com/Uniswap/inte
 | UniswapV3Factory            | enableFeeAmount     | Enables the creation of new fee tiers for pools by enabling a specific fee amount paired with a corresponding tick spacing.                                                                                                                         | TimeLocked DAO contract (GovernorBravo) |
 | UniswapV3Pool               | setFeeProtocol      | Allows the owner to set a fee percentage that is deducted from the LPs fees. It only affects the pool where the function is called. The fee is required to be less than 10% of the total accumulated fees. It only affects future accumulated fees. | TimeLocked DAO contract (GovernorBravo) |
 | UniswapV3Pool               | collectProtocol     | Withdraws the accumulated protocol fees to a custom address. The DAO triggers the withdraw and specifies the address.                                                                                                                               | TimeLocked DAO contract (GovernorBravo) |
-| ProxyAdmin                  | renounceOwnership   | Abandons ownership of the contract. The DAO would renounce the access to the administrative functions of the contracts, which includes upgrading the NonFungibleTokenPositionDescriptor contract.                                                   | TimeLocked DAO contract (GovernorBravo) |
-| ProxyAdmin                  | changeProxyAdmin    | Updates the admin of the TransparentUpgradeableProxy: the account with the rights to upgrade the proxy's implementation. This would replace the role of the ProxyAdmin contract and could be used to upgrade (replace) ProxyAdmin.                  | TimeLocked DAO contract (GovernorBravo) |
-| ProxyAdmin                  | transferOwnership   | Updates the owner of the ProxyAdmin contract: the account with the rights to change the admin of the proxy and upgrade the NonFungibleTokenPositionDescriptor contract.                                                                             | TimeLocked DAO contract (GovernorBravo) |
-| ProxyAdmin                  | upgrade             | Triggers the upgrade of the NonFungibleTokenPositionDescriptor contract which allows to change the token descriptions.                                                                                                                              | TimeLocked DAO contract (GovernorBravo) |
-| ProxyAdmin                  | upgradeAndCall      | Triggers the upgrade of the NonFungibleTokenPositionDescriptor contract which allows to change the token descriptions and then call a function in the new contract.                                                                                 | TimeLocked DAO contract (GovernerBravo) |
-| TransparentUpgradeableProxy | changeAdmin         | Updates the proxy's admin: the account with the rights to upgrade the proxy's implementation. This would replace the role of the ProxyAdmin contract and could be used to upgrade (replace) ProxyAdmin.                                             | ProxyAdmin                              |
-| TransparentUpgradeableProxy | upgradeTo           | Upgrades the NonFungibleTokenPositionDescriptor contract which allows to change the token descriptions.                                                                                                                                             | ProxyAdmin                              |
-| TransparentUpgradeableProxy | upgradeToAndCall    | Upgrades the NonFungibleTokenPositionDescriptor contract which allows to change the token descriptions and then call a function in the new contract.                                                                                                | ProxyAdmin                              |
-| TimeLock                    | queueTransaction    | Queues a transaction that can be executed once a delay (between 2 and 30 days) has passed. This can impact the own TimeLock's settings (change admin, set delays) or interaction with any other contract the TimeLock has permissions on.           | GovernorBravoDelegator                  |
+| ProxyAdmin                  | renounceOwnership   | Abandons ownership of the contract. The DAO would renounce the access to the administrative functions of the contracts, which includes upgrading the `NonFungibleTokenPositionDescriptor` contract.                                                 | TimeLocked DAO contract (GovernorBravo) |
+| ProxyAdmin                  | changeProxyAdmin    | Updates the admin of the `TransparentUpgradeableProxy`: the account with the rights to upgrade the proxy's implementation. This would replace the role of the `ProxyAdmin` contract and could be used to upgrade (replace) `ProxyAdmin`.            | TimeLocked DAO contract (GovernorBravo) |
+| ProxyAdmin                  | transferOwnership   | Updates the owner of the `ProxyAdmin` contract: the account with the rights to change the admin of the proxy and upgrade the `NonFungibleTokenPositionDescriptor` contract.                                                                         | TimeLocked DAO contract (GovernorBravo) |
+| ProxyAdmin                  | upgrade             | Triggers the upgrade of the `NonFungibleTokenPositionDescriptor` contract which allows to change the token descriptions.                                                                                                                            | TimeLocked DAO contract (GovernorBravo) |
+| ProxyAdmin                  | upgradeAndCall      | Triggers the upgrade of the `NonFungibleTokenPositionDescriptor` contract which allows to change the token descriptions and then call a function in the new contract.                                                                               | TimeLocked DAO contract (GovernerBravo) |
+| TransparentUpgradeableProxy | changeAdmin         | Updates the proxy's admin: the account with the rights to upgrade the proxy's implementation. This would replace the role of the `ProxyAdmin` contract and could be used to upgrade (replace) `ProxyAdmin`.                                         | ProxyAdmin                              |
+| TransparentUpgradeableProxy | upgradeTo           | Upgrades the `NonFungibleTokenPositionDescriptor` contract which allows to change the token descriptions.                                                                                                                                           | ProxyAdmin                              |
+| TransparentUpgradeableProxy | upgradeToAndCall    | Upgrades the `NonFungibleTokenPositionDescriptor` contract which allows to change the token descriptions and then call a function in the new contract.                                                                                              | ProxyAdmin                              |
+| TimeLock                    | queueTransaction    | Queues a transaction that can be executed once a delay (between 2 and 30 days) has passed. This can impact the own `TimeLock`'s settings (change admin, set delays) or interaction with any other contract the `TimeLock` has permissions on.       | GovernorBravoDelegator                  |
 | TimeLock                    | cancelTransaction   | Cancels a pending transaction and removes it from the queue. This allows the DAO to cancel one of its own decision before it is executed.                                                                                                           | GovernorBravo                           |
 | TimeLock                    | executeTransaction  | Executes a transaction that was previously queued, if the corresponding delay has passed.                                                                                                                                                           | GovernorBravoDelegator                  |
-| GovernorBravoDelegator      | \_setImplementation | Updates the implementation of the GovernorBravo (DAO) contract. Can only be triggered by the DAO itself. The new contract would inherit all the DAO permissions mentioned above.                                                                    | TimeLocked DAO contract (GovernerBravo) |
+| GovernorBravoDelegator      | \_setImplementation | Updates the implementation of the `GovernorBravo` (DAO) contract. Can only be triggered by the DAO itself. The new contract would inherit all the DAO permissions mentioned above.                                                                  | TimeLocked DAO contract (GovernerBravo) |
 
 ## Dependencies
 
@@ -127,7 +125,7 @@ No external dependency has been found.
 ## Exit Window
 
 As the contracts are immutable the users can always withdraw their funds, but parameters such as protocol
-fees can be changed by the DAO. Timelocks protect the contracts and update are governed by the Governor Bravo contract.
+fees can be changed by the DAO. A `Timelock` protects the contracts and updates are governed by the `GovernorBravo` contract.
 The lock period is at least two days and up to 30 days for governance actions.
 When a proposal is created (at least 2.5M Uni), the community can cast their votes during a 3 day voting period. If a majority, and at least 4M votes are cast for the proposal, it is queued in the Timelock, and may be executed in a minimum of 2 days.
 
