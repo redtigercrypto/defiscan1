@@ -3,21 +3,20 @@ protocol: "Aerodrome"
 website: "https://aerodrome.finance/"
 x: "https://x.com/AerodromeFi"
 github: "https://github.com/aerodrome-finance"
-defillama_slug: "aerodrome-v1"
+defillama_slug: ["aerodrome-v1", "aerodrome-slipstream"]
 chain: "Base"
 stage: 0
-risks: ["H", "M", "L", "H", "L"]
+risks: ["H", "M", "L", "M", "L"]
 author: ["CookingCryptos", "sagaciousyves"]
 submission_date: "2024-10-23"
 publish_date: "2024-10-23"
 acknowledge_date: "1970-01-01"
-update_date: "1970-01-01"
+update_date: "2024-12-12"
 ---
 
 # Summary
 
 Aerodrome Finance is a next-generation AMM designed to serve as Base's central liquidity hub, combining a powerful liquidity incentive engine, vote-lock governance model, and friendly user experience. Aerodrome inherits the latest features from Velodrome V2.
-
 
 # Overview
 
@@ -29,16 +28,17 @@ Aerodrome is deployed on the Base chain, an Ethereum L2 in Stage 0 according to 
 
 ## Upgradeability
 
-Different permissions in the protocol are owned by a number of Multisigs.  
+To a large part the protocol is immutable. In particular, no permissions with a potential impact on user funds have been identified.
 
-The _Emergency Council_ (a Multisig) has the permission to _kill_ and _revive_ gauges. Gauges distribute rewards to LPs in the system in weekly periods. The amount of rewards per period is determined through an on-chain voting process among veNFT holders. The killing of a gauge results in the loss of all accumulated yield in the gauge for the current epoch. While this permission is intended to be used only in the case of a _malicious_ gauge, see e.g. the case of [killing the USDM gauge](https://gov.curve.fi/t/the-curve-emergency-dao-has-killed-the-usdm-gauge/2307) on Curve in November 2021, it can potentially also be abused if the permission owner is comprimised.
+The remaining permissions are related to the protocol's rewards system and periphery contracts. These permissions are controlled by a number of multisigs including an _undeclared_ multisig.
 
-The _Undeclared Multisig_, the multisig is not referenced in the docs, has the privilege to (un-) whitelist veNFTs to participate in the gauge rewards voting process during the last hour before an epoch ends. During this window, the whitelisted veNFTs are the only allowed voters and are thus able to control the final vote outcome. This permission thus too enables the permission owners to unilaterally change the accumulated yield in a gauge. 
+Among these, the undeclared multisig has control over a whitelist of special voters with the ability to change the rewards distributed to LPs. Specifically, "regular" veNFT holders compete in weekly voting rounds to distribute a fixed amount of rewards, paid in the protocol's native token, AERO. Regular voters are able to signal their support for a specific _gauge_ which, after the conclusion of a voting round, receives and distributes rewards among the LPs of the linked pool. This public voting period is followed by a "private" voting window of 1 hour during which only the whitelisted veNFT holders are able to participate. As a result, these whitelisted veNFT holders, and by extension the undeclared multisig, are able to control the final vote outcome. The impact of this is classified as a potential material change of the expected performance including the loss of accrued yield (if public votes are overwritten by the whitelisted veNFTs).
 
-Furthermore, the `Undeclared Multisig` is assigned the owner role in multiple contracts and in particular in the _FactoryRegistry_ contract. This contract grants the ability to approve or unapprove factories within the Aerodrome system. Swaps are then routed through new pools from the approved factories. However, traders are protected from malicious factories (and pools) through a slippage tolerance which is enforced on the router. LPs too are not at risk of supplying liquidity in a malicious pool since only pools from the default factory are enabled for LP functions.
+The undeclared multisig further is the owner of various contracts, and the associated permissions, including the _FactoryRegistry_. This contract allows the undeclared multisig to (un-) approve _factory_ contracts within the protocol. User's swaps are routed through the pools created from the approved factories. Users are protected from malicious factories (and pools) through a user defined slippage tolerance which is enforced on all swaps on the router contract. On the other hand, only pools created from the _default_ factory are enabled for LP provisioning functions effectively protecting LPs in the protocol.
+
+Another noteworthy permission in the protocol is the ability to _kill_ and _revive_ gauges and thereby stop, or enable, a gauge to receive and distribute rewards to LPs and voters. However, killing a gauge does not affect the rewards already distributed to LPs or voters and also does not affect the rewards, or any other aspect, of other gauges. This permission hence can not materially affect the protocol's expected performance.
 
 > Upgradeability score: M
-
 
 ## Autonomy
 
@@ -48,9 +48,9 @@ Aerodrome does not have external dependencies 🎉
 
 ## Exit Window
 
-Permissions are not protected by an exit window resulting in users not being able to withdraw funds in case of an unwanted update.
+Existing permissions have a "Medium" risk score and are not protected by an exit window. Users are not able to withdraw funds in case of an unwanted update.
 
-> Exit Window score: H
+> Exit Window score: M
 
 ## Accessibility
 
@@ -62,8 +62,8 @@ Aerodrome provides multiple access points for users, including both centralized 
 
 ## Contracts
 
-| Contract Name                      | Address                                    |
-| ---------------------------------- | ------------------------------------------ |
+| Contract Name                      | Address                                                                                                               |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | AERO                               | [0x940181a94A35A4569E4529A3CDfB74e38FD98631](https://basescan.org/address/0x940181a94A35A4569E4529A3CDfB74e38FD98631) |
 | AirdropDistributor                 | [0xE4c69af018B2EA9e575026c0472B6531A2bC382F](https://basescan.org/address/0xE4c69af018B2EA9e575026c0472B6531A2bC382F) |
 | VeArtProxy                         | [0xE9992487b2EE03b7a91241695A58E0ef3654643E](https://basescan.org/address/0xE9992487b2EE03b7a91241695A58E0ef3654643E) |
@@ -130,8 +130,8 @@ Aerodrome provides multiple access points for users, including both centralized 
 | Voter                      | setMaxVotingNum          | Sets a maximum number of pools a user can vote for. Code enforces that this number is not below 10.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Undeclared Multisig                                                    |
 | Voter                      | whitelistToken           | Whitelists (or unwhitelists) a token for use in bribes. If not whitelisted, no gauge can be created for a pool and thus the pool cannot participate in the reward distribution as it cannot receive votes.                                                                                                                                                                                                                                                                                                                                                            | Undeclared Multisig                                                    |
 | Voter                      | whitelistNFT             | Whitelists (or unwhitelists) a token ID for voting in the last hour prior to epoch flip.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Undeclared Multisig                                                    |
-| Voter                      | killGauge                | Kills a gauge, preventing new emissions and deposits, but allowing withdrawals (see Upgradability section under Assessment).                                                                                                                                                                                                                                                                                                                                                                                                                                          | Emergency Council Multisig                                             |
-| Voter                      | reviveGauge              | Revives a killed gauge, allowing it to receive emissions and deposits again (see Upgradability section under Assessment).                                                                                                                                                                                                                                                                                                                                                                                                                                             | Emergency Council Multisig                                             |
+| Voter                      | killGauge                | Kills a gauge, preventing new emissions and deposits, but allowing withdrawals (see "Notes regarding the killing of a gauge").                                                                                                                                                                                                                                                                                                                                                                                                                                        | Emergency Council Multisig                                             |
+| Voter                      | reviveGauge              | Revives a killed gauge, allowing it to receive emissions and deposits again (see "Notes regarding the killing of a gauge").                                                                                                                                                                                                                                                                                                                                                                                                                                           | Emergency Council Multisig                                             |
 | VotingEscrow               | createManagedLockFor     | Manager can create a managed ve position for a user (a permanent lock).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | AllowedManager or Governor Undeclared Multisig                         |
 | VotingEscrow               | depositManaged           | Delegates balance to a managed NFT, re-locking it to the maximum lock time on withdrawal.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Voter contract 0x16613524e02ad97eDfeF371bC883F2F5d6C480A5              |
 | VotingEscrow               | withdrawManaged          | Retrieves locked rewards and withdraws balance from managed NFT.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Voter contract 0x16613524e02ad97eDfeF371bC883F2F5d6C480A5              |
@@ -150,6 +150,12 @@ Aerodrome provides multiple access points for users, including both centralized 
 | CLFactory                  | enableTickSpacing        | Enables a certain tickSpacing in the pools deployed from the factory.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Undeclared Multisig                                                    |
 | CustomSwapFeeModule        | setCustomFee             | Sets a custom fee between 0 and a max fee for a specified pool. The CLFactory gets the fee via calling getFee on this contract.                                                                                                                                                                                                                                                                                                                                                                                                                                       | SwapFeeManager (Undeclared Multisig)                                   |
 | CustomUnstakedFeeModule    | setCustomFee             | Sets a custom fee between 0 and a max fee for a specified pool. The CLFactory gets the fee via calling getFee on this contract.                                                                                                                                                                                                                                                                                                                                                                                                                                       | UnstakeFeeManager (Undeclared Multisig)                                |
+
+### Notes regarding the killing of a gauge
+
+After each period, AERO tokens from the `Minter` contract flow into the `Voter` contract via calling `updatePeriod()`. Once the tokens are in the `Voter` contract, they flow according to the voting weight to each `Gauge` through calling `distribute()` on the `Voter` contract. Once the AERO tokens ended up in the different `Gauge` contracts, the users can claim their reward no matter of the living status of the `Gauge`. It's the function call `distribute()` that sends the tokens to the `Gauge` which reverts if the `Gauge` is killed. For rewards to be claimable for users the function calls `updatePeriod()` and `distribute()` need to occur in succession and the killing of the `Gauge` before either one of them results in yield not being available to the user. But, since both functions are public everyone, can call them. And thus during the first block of each period where `updatePeriod()` is callable, the permission owner that kills the `Gauge` needs to frontrun the transactions which are calling `updatePeriod()` and `distribute()`. This centralisation vector is thus not definitive and only probabilistic.
+
+On the other hand, Voters earn a claim on yield proportional to their allocated votes when calling the `vote()` for a gauge on the `Voter` contract. Function `vote()` will revert if the respective gauge is killed, thus not crediting a claim on yield for the killed gauge. However, previous votes and the credited yield claims, before the gauge is killed, are not affected by this. Voters will thus still be able to claim their accumulated yield.
 
 ## Dependencies
 
