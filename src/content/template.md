@@ -68,6 +68,7 @@ This steps help you write a nice report:
    3. Third: Imagine faulty or malicious action, e.g "The malicious owner could raise fees to 100%, redirecting all future yield.
 6. Summarise and abstract away technical details in this section here (`## Upgradeability`)
 
+
 ## Autonomy
 
 See http://defiscan.info/learn-more#autonomy for more guidance.
