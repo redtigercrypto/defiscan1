@@ -40,7 +40,7 @@ export interface BadgeProps
 function Badge({ className, variant, stage, ...props }: BadgeProps) {
   return (
     <Tooltip>
-      <TooltipTrigger className="flex size-4/5 lg:size-full items-center justify-start">
+      <TooltipTrigger className="-mr-8 flex size-3/5 size-full items-center justify-start">
         <div className={cn(badgeVariants({ variant }), className)} {...props} />
       </TooltipTrigger>
       <TooltipContent fitContent>
@@ -59,17 +59,11 @@ export function BadgeTooltip({ stage }: { stage: Stage }) {
       </span>
       <div className="flex items-center gap-6">
         <div className="relative flex flex-col justify-center p-4 shadow-md max-w-md">
-          {stage === "R"
-            ? stageToRequisites[0].map((item, index) => (
-                <div key={index} className="mt-1">
-                  {item}
-                </div>
-              ))
-            : stageToRequisites.slice(1)[stage].map((item, index) => (
-                <div key={index} className="mt-1">
-                  {item}
-                </div>
-              ))}
+          {stageToRequisites[stage].map((item, index) => (
+            <div key={index} className="mt-1">
+              {item}
+            </div>
+          ))}
         </div>
       </div>
     </div>
