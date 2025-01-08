@@ -6,11 +6,11 @@ github: ["https://github.com/projectgithub"]
 defillama_slug: ["the slug used by https://defillama.com"]
 chain: "the name of the chain on which the protocol is deployed"
 stage: 0
+reasons: ["remove", "if none"]
 risks: ["x", "x", "x", "x", "x"]
 author: ["author-1", "author-2"]
 submission_date: "1970-01-01"
 publish_date: "1970-01-01"
-acknowledge_date: "1970-01-01"
 update_date: "1970-01-01"
 ---
 
@@ -67,7 +67,6 @@ This steps help you write a nice report:
    2. Second: what is the impact within the system, e.g "The owner is permissioned to raise fees"
    3. Third: Imagine faulty or malicious action, e.g "The malicious owner could raise fees to 100%, redirecting all future yield.
 6. Summarise and abstract away technical details in this section here (`## Upgradeability`)
-
 
 ## Autonomy
 
