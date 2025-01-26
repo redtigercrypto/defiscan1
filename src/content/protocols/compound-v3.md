@@ -2,7 +2,7 @@
 protocol: "Compound-V3"
 website: "https://compound.finance/"
 x: "https://x.com/compoundfinance"
-github: "https://github.com/compound-finance/compound-protocol"
+github: ["https://github.com/compound-finance/compound-protocol"]
 defillama_slug: ["compound-v3"]
 chain: "Ethereum"
 stage: 0
