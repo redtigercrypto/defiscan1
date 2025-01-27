@@ -5,9 +5,9 @@ x: "https://x.com/compoundfinance"
 github: ["https://github.com/compound-finance/compound-protocol"]
 defillama_slug: ["compound-v3"]
 chain: "Ethereum"
-stage: 0
+stage: 1
 reasons: []
-risks: ["L", "H", "H", "H", "M"]
+risks: ["L", "H", "L", "H", "M"]
 author: ["mmilien_"]
 submission_date: "2025-01-26"
 publish_date: "1970-01-01"
@@ -35,9 +35,10 @@ Risk: High
 
 ## Autonomy
 
-The protocol uses Chainlink's oracle to get the price of the base token. Failure or malicious activity from the oracle may result in users' positions being liquidated.
+The protocol uses Chainlink's oracle to get the price of the base token. If te oracle fails it may
+be replaced only with a contract upgrade triggered from the DAO (3+ days delay).
 
-Risk: High
+Risk: Low
 
 ## Exit Window
 
