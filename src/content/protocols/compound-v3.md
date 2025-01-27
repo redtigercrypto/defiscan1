@@ -6,10 +6,7 @@ github: ["https://github.com/compound-finance/compound-protocol"]
 defillama_slug: ["compound-v3"]
 chain: "Ethereum"
 stage: 1
-reasons:
-  [
-    Main contracts are upgradable and pausable but control is transferred to a security council.,
-  ]
+reasons: []
 risks: ["L", "H", "L", "H", "M"]
 author: ["mmilien_"]
 submission_date: "2025-01-26"
