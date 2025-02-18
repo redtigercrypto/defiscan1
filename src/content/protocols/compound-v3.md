@@ -17,7 +17,7 @@ update_date: "1970-01-01"
 
 # Summary
 
-Compound III is an EVM compatible protocol that enables supplying of crypto assets as collateral in order to borrow the base asset. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Accounts can also earn interest by supplying the base asset to the protocol. The market logic of each base asset is implemented in respective `Comet`contracts. Those `Comet`s are deployed by the `Comet Factory` using the `Configurator`. The `Configurator` holds the parameters of each market. A new `Comet` contract needs to be deployed every time the parameters of the market change.
+Compound III is an EVM compatible protocol that enables supplying of crypto assets as collateral in order to borrow the base asset. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Accounts can also earn interest by supplying the base asset to the protocol. The market logic of each base asset is implemented in respective `Comet` contracts. Those `Comet`s are deployed by the `Comet Factory` using the `Configurator`. The `Configurator` holds the parameters of each market. A new `Comet` contract needs to be deployed every time the parameters of the market change.
 
 # Overview
 
@@ -33,7 +33,7 @@ The `Comet`s, `Configuration`, and `Compound Governor` contracts can be changed 
 If a malicious upgrade passes the governance vote a `ProposalGuardian` (currently same as `PauseGuardian`) can cancel proposals
 before execution.
 
-Any `Comet`parameter change requires a new deployment.The process is as follows:
+Any `Comet`parameter change requires a new deployment. The process is as follows:
 
 1.  new parameters are set using setters in the `Configurator` contract.
 2.  the `ProxyAdmin` contract uses `deployAndUpgradeTo` to deploy a new comet contract using the `Configurator` and update the corresponding `Comet Proxy` to point to this newly deployed contract.
@@ -55,7 +55,7 @@ be replaced only with a contract upgrade triggered from the DAO (5+ days delay).
 Once an upgrade is approved by the governance there is a delay of 2 days allowing users to react. Anyone with more than 25'000 Comp can create a proposal, each proposal has a minimum voting time of 3 days and requires at least 400'000 votes to be valid. A malicious upgrade could hijack user funds if it is not blocked by the ProposalGuardian.
 In addition to that, the tranfers/deposits/withdrawals can be paused by the PauseGuardian (Security Council) with no delay, freezing all assets.
 
-> Risk: High
+> Exit Window score: High
 
 ## Accessibility
 
@@ -63,7 +63,7 @@ The frontend of Compound V3 is open source. Instructions to deploy it locally or
 on IPFS are available [here](https://github.com/compound-finance/palisade). There is no registry
 of alternative deployments.
 
-> Risk: Medium
+> Accessibility score: Medium
 
 # Technical Analysis
 
