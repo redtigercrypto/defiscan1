@@ -29,8 +29,8 @@ The initial deployment of Compound III is on Ethereum mainnet.
 
 ## Upgradeability
 
-The `Comet`s and `Configuration` contracts can be changed at any time with a delay of 2 days once a proposal is accepted. The comet contracts manages all deposits and borrows. A PauseGuardian (security council) can pause the contracts at any time.
-If a malicious upgrade passes the governance vote a ProposalGuardian (currently same as PauseGuardian) can cancel proposals
+The `Comet`s, `Configuration`, and `Compound Governor` contracts can be changed at any time with a delay of 2 days once a proposal is accepted. The comet contracts manages all deposits and borrows. A PauseGuardian (security council) can pause the `Comet` contracts at any time.
+If a malicious upgrade passes the governance vote a `ProposalGuardian` (currently same as `PauseGuardian`) can cancel proposals
 before execution.
 
 Any `Comet`parameter change requires a new deployment.The process is as follows:
