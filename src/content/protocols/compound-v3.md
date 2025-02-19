@@ -17,7 +17,7 @@ update_date: "1970-01-01"
 
 # Summary
 
-Compound III is an EVM compatible protocol that enables supplying of crypto assets as collateral in order to borrow the base asset. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Accounts can also earn interest by supplying the base asset to the protocol. The market logic of each base asset is implemented in respective `Comet` contracts. Those `Comet`s are deployed by the `Comet Factory` using the `Configurator`. The `Configurator` holds the parameters of each market. A new `Comet` contract needs to be deployed every time the parameters of the market change.
+Compound III is an EVM compatible protocol that enables supplying of crypto assets as collateral in order to borrow the base asset. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Accounts can also earn interest by supplying the base asset to the protocol. The market logic of each base asset is implemented in respective `Comet` contracts.
 
 # Overview
 
@@ -176,10 +176,16 @@ represented once as `Comet Proxy` and `Comet Implementation`in the table above.
 Any `Comet`parameter change requires a new deployment. The process is as follows:
 
 1.  new parameters are set using setters in the `Configurator` contract.
-2.  the `ProxyAdmin` contract uses `deployAndUpgradeTo` to deploy a new comet contract through the `Configurator`, which uses the `CometFactory`. It then updates the corresponding `Comet Proxy` to point to this newly deployed contract.
+2.  the `ProxyAdmin` contract uses `deployAndUpgradeTo`:
+    1. Deploys a new comet contract through the `Configurator`, which uses the `CometFactory`.
+    2. Updates the corresponding `Comet Proxy` to point to this newly deployed contract.
 
 A malicious update could simply perform the update to the `Comet Proxy`to introduce a malicious `Comet Implementation` contract, effectively stealing funds.
 This is because the `upgrade` function can still be called by the DAO in addition to `deployAndUpgradeTo`, allowing the DAO to deploy `Comet` contracts not created by the `Configurator`.
+
+The process is illustrated below.
+
+![Update scheme for a comet contract](/public/images/compound-v3-update.png)
 
 # Security Council
 
