@@ -185,7 +185,7 @@ This is because the `upgrade` function can still be called by the DAO in additio
 
 The process is illustrated below.
 
-![Update scheme for a comet contract](/public/images/compound-v3-update.png)
+![Update scheme for a comet contract](./compound-v3-update.png)
 
 # Security Council
 
