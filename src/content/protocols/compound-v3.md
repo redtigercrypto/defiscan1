@@ -190,7 +190,7 @@ The process is illustrated below.
 # Security Council
 
 A security council called `Pause Guardian` has the power to pause all deposits, withdrawals, and transfers
-in the protocol. The guardian is currently a 4/8 multisig made of Compound DAO community members. The signers are announced [here](https://www.comp.xyz/t/community-multisig-4-of-6-deployment/134/18). The same multisig is also `Proposal Guardian` and has the power to cancel Governance Proposal before their executions.
+in the protocol. The guardian is currently a 4/8 multisig made of Compound DAO community members. The signers are announced [here](https://www.comp.xyz/t/community-multisig-4-of-6-deployment/134/18). The same multisig is also `Proposal Guardian` and has the power to cancel Governance Proposals before their executions.
 
 | Requirement                                             | Pause Guardian |
 | ------------------------------------------------------- | -------------- |
