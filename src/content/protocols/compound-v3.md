@@ -38,8 +38,7 @@ When assuming that the governance could be hijacked and the `ProposalGuardian` a
 
 ## Autonomy
 
-The protocol uses Chainlink's oracle to get the price of the base token. If the oracle fails it may
-be replaced only with a contract upgrade triggered from the DAO (5+ days delay).
+The protocol uses Chainlink's oracle to get the price of the base token. There are no fallback mechanisms if the oracle fails. It may be replaced only with a contract upgrade triggered from the DAO (5+ days delay).
 
 > Autonomy score: Low
 
@@ -172,6 +171,11 @@ of alternative deployments.
 
 The permissions for all Comet contracts (USDC, WETH, wsETH, USDT, USDS) are similar and therefore only
 represented once as `Comet Proxy` and `Comet Implementation`in the table above.
+
+## Dependencies
+
+The protocol uses Chainlink's oracle to get the price of the base token. There are no fallback mechanisms if the oracle fails. It may be replaced only with a contract upgrade triggered from the DAO (5+ days delay). The returned price is
+only checked to be a positive non-zero value, the timestamp of the latest price update is ignored.
 
 ## Upgrade process
 
