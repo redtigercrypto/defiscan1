@@ -65,7 +65,7 @@ Below is an overview of the contracts from the Compound V3 protocol.
 
 ## Contracts
 
-⚠️ During our analysis, we noticed many of the contract addresses listed in the (official documentation)[https://docs.compound.finance/] are out of date. This is most likely explained by the high frequency of updates to the implementation contracts. The list below was last updated on the 20th of February 2025.
+⚠️ During our analysis, we noticed many of the contract addresses listed in the [official documentation](https://docs.compound.finance/) are out of date. This is most likely explained by the high frequency of updates to the implementation contracts. The list below was last updated on the 20th of February 2025.
 | Contract Name | Address |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | cUSDCv3 (Comet Proxy) | [0xc3d688B66703497DAA19211EEdff47f25384cdc3](https://etherscan.io/address/0xc3d688B66703497DAA19211EEdff47f25384cdc3) |
