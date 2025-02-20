@@ -32,7 +32,7 @@ The initial deployment of Compound III is on Ethereum mainnet.
 The `Comet`s, `Configuration`, and `Compound Governor` contracts can be changed at any time with a delay of 2 days once a governance proposal is accepted. The `Comet`s are deployed by the `Comet Factory` using the `Configurator`. The `Configurator` holds the parameters of each market. The desired process to update the market is via the configurator that holds the possible market parameters and making the market (with all the funds of a respective base asset) point to this new logic. A `PauseGuardian` (security council) can pause the markets at any time and a `ProposalGuardian` can cancel goverance proposals
 before execution (incl. upgrades).
 
-When assuming that the governance could be hijacked and the Proposal Guardian acts in favor of this hijack (not stoping from enforcement of malicious proposal) then the current implementation does not prohibit that a market gets a completely malicious logic assigned that does not stem from the configurator itself and allows the attacker to steal all funds that were not rescued in the 2-day delay period.
+When assuming that the governance could be hijacked and the `ProposalGuardian` acts in favor of this hijack (not stoping from enforcement of malicious proposal) then the current implementation does not prohibit that a market gets a completely malicious logic assigned that does not stem from the configurator itself and allows the attacker to steal all funds that were not rescued in the 2-day delay period.
 
 > Upgradeability score: High
 
@@ -45,8 +45,8 @@ be replaced only with a contract upgrade triggered from the DAO (5+ days delay).
 
 ## Exit Window
 
-Once an upgrade is approved by the governance there is a delay of 2 days allowing users to react. Anyone with more than 25'000 Comp can create a proposal, each proposal has a minimum voting time of 3 days and requires at least 400'000 votes to be valid. A malicious upgrade could hijack user funds if it is not blocked by the ProposalGuardian.
-In addition to that, the tranfers/deposits/withdrawals can be paused by the PauseGuardian (Security Council) with no delay, freezing all assets.
+Once an upgrade is approved by the governance there is a delay of 2 days allowing users to react. Anyone with more than 25'000 Comp can create a proposal, each proposal has a minimum voting time of 3 days and requires at least 400'000 votes to be valid. A malicious upgrade could hijack user funds if it is not blocked by the `ProposalGuardian`.
+In addition to that, the tranfers/deposits/withdrawals can be paused by the `PauseGuardian` (Security Council) with no delay, freezing all assets.
 
 > Exit Window score: High
 
@@ -59,6 +59,8 @@ of alternative deployments.
 > Accessibility score: Medium
 
 # Technical Analysis
+
+⚠️ During our analysis, we noticed many of the contract addresses listed in the (official documentation)[https://docs.compound.finance/] are out of date. This is most likely explained by the high frequency of updates to the implementation contracts. The list below was last updated on the 20th of February 2025.
 
 ## Contracts
 
