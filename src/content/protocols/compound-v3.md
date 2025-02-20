@@ -66,34 +66,35 @@ Below is an overview of the contracts from the Compound V3 protocol.
 ## Contracts
 
 ⚠️ During our analysis, we noticed many of the contract addresses listed in the [official documentation](https://docs.compound.finance/) are out of date. This is most likely explained by the high frequency of updates to the implementation contracts. The list below was last updated on the 20th of February 2025.
-| Contract Name | Address |
+
+| Contract Name                      | Address                                                                                                               |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| cUSDCv3 (Comet Proxy) | [0xc3d688B66703497DAA19211EEdff47f25384cdc3](https://etherscan.io/address/0xc3d688B66703497DAA19211EEdff47f25384cdc3) |
-| cUSDCv3 (Comet Implementation) | [0xaeC1954467B6d823A9042E9e9D6E4F40111069a9](https://etherscan.io/address/0xaeC1954467B6d823A9042E9e9D6E4F40111069a9) |
-| cUSDCv3 Ext | [0x285617313887d43256F852cAE0Ee4de4b68D45B0](https://etherscan.io/address/0x285617313887d43256F852cAE0Ee4de4b68D45B0) |
-| cWETHv3 (Comet Proxy) | [0xA17581A9E3356d9A858b789D68B4d866e593aE94](https://etherscan.io/address/0xA17581A9E3356d9A858b789D68B4d866e593aE94) |
-| cWETHv3 (Comet Implementation) | [0x318b8615643bdae03B7ca63E69b3f06ff1af0bC7](https://etherscan.io/address/0x318b8615643bdae03B7ca63E69b3f06ff1af0bC7) |
-| cWETHv3 Ext | [0xe2C1F54aFF6b38fD9DF7a69F22cB5fd3ba09F030](https://etherscan.io/address/0xe2C1F54aFF6b38fD9DF7a69F22cB5fd3ba09F030) |
-| cUSDTv3 (Comet Proxy) | [0x3Afdc9BCA9213A35503b077a6072F3D0d5AB0840](https://etherscan.io/address/0x3Afdc9BCA9213A35503b077a6072F3D0d5AB0840) |
-| cUSDTv3 (Comet Implementation) | [0xf930618E2202e6A2a20606AE89ef7406974622e7](https://etherscan.io/address/0xf930618E2202e6A2a20606AE89ef7406974622e7) |
-| cUSDTv3 Ext | [0x5C58d4479A1E9b2d19EE052143FA73F0ee79A36e](https://etherscan.io/address/0x5C58d4479A1E9b2d19EE052143FA73F0ee79A36e) |
-| cwstETHv3 (Comet Proxy) | [0x3D0bb1ccaB520A66e607822fC55BC921738fAFE3](https://etherscan.io/address/0x3D0bb1ccaB520A66e607822fC55BC921738fAFE3) |
-| cwstETHv3 (Comet Implementation) | [0x25DabAB0c230131aaE9B312Ce1591934f43e024A](https://etherscan.io/address/0x25DabAB0c230131aaE9B312Ce1591934f43e024A) |
-| cwstETHv3 Ext | [0x995E394b8B2437aC8Ce61Ee0bC610D617962B214](https://etherscan.io/address/0x995E394b8B2437aC8Ce61Ee0bC610D617962B214) |
-| cUSDSv3 (Comet Proxy) | [0x5D409e56D886231aDAf00c8775665AD0f9897b56](https://etherscan.io/address/0x5D409e56D886231aDAf00c8775665AD0f9897b56) |
-| cUSDSv3 (Comet Implementation) | [0xBEBbC5Fc967D8425CF96e97838249eBc9495F9A3](https://etherscan.io/address/0xBEBbC5Fc967D8425CF96e97838249eBc9495F9A3) |
-| cUSDSv3 Ext | [0x95DeDD64b551F05E9f59a101a519B024b6b116E7](https://etherscan.io/address/0x95DeDD64b551F05E9f59a101a519B024b6b116E7) |
-| Bulker | [0x74a81F84268744a40FEBc48f8b812a1f188D80C3](https://etherscan.io/address/0x74a81F84268744a40FEBc48f8b812a1f188D80C3) |
-| Configurator (Proxy) | [0x316f9708bB98af7dA9c68C1C3b5e79039cD336E3](https://etherscan.io/address/0x316f9708bB98af7dA9c68C1C3b5e79039cD336E3) |
-| Configurator (Implementation) | [0xcFC1fA6b7ca982176529899D99af6473aD80DF4F](https://etherscan.io/address/0xcFC1fA6b7ca982176529899D99af6473aD80DF4F) |
-| Proxy Admin (Comet, Configurator) | [0x1EC63B5883C3481134FD50D5DAebc83Ecd2E8779](https://etherscan.io/address/0x1EC63B5883C3481134FD50D5DAebc83Ecd2E8779) |
-| Proxy Admin (Compound Governor) | [0x725ed7f44f0888aec1b7630ab1acdced91e0591a](https://etherscan.io/address/0x725ed7f44f0888aec1b7630ab1acdced91e0591a) |
-| Comet Factory | [0xa7F7De6cCad4D83d81676717053883337aC2c1b4](https://etherscan.io/address/0xa7F7De6cCad4D83d81676717053883337aC2c1b4) |
-| Rewards | [0x1B0e765F6224C21223AeA2af16c1C46E38885a40](https://etherscan.io/address/0x1B0e765F6224C21223AeA2af16c1C46E38885a40) |
-| Compound Governor (Proxy) | [0x309a862bbC1A00e45506cB8A802D1ff10004c8C0](https://etherscan.io/address/0x309a862bbC1A00e45506cB8A802D1ff10004c8C0) |
+| cUSDCv3 (Comet Proxy)              | [0xc3d688B66703497DAA19211EEdff47f25384cdc3](https://etherscan.io/address/0xc3d688B66703497DAA19211EEdff47f25384cdc3) |
+| cUSDCv3 (Comet Implementation)     | [0xaeC1954467B6d823A9042E9e9D6E4F40111069a9](https://etherscan.io/address/0xaeC1954467B6d823A9042E9e9D6E4F40111069a9) |
+| cUSDCv3 Ext                        | [0x285617313887d43256F852cAE0Ee4de4b68D45B0](https://etherscan.io/address/0x285617313887d43256F852cAE0Ee4de4b68D45B0) |
+| cWETHv3 (Comet Proxy)              | [0xA17581A9E3356d9A858b789D68B4d866e593aE94](https://etherscan.io/address/0xA17581A9E3356d9A858b789D68B4d866e593aE94) |
+| cWETHv3 (Comet Implementation)     | [0x318b8615643bdae03B7ca63E69b3f06ff1af0bC7](https://etherscan.io/address/0x318b8615643bdae03B7ca63E69b3f06ff1af0bC7) |
+| cWETHv3 Ext                        | [0xe2C1F54aFF6b38fD9DF7a69F22cB5fd3ba09F030](https://etherscan.io/address/0xe2C1F54aFF6b38fD9DF7a69F22cB5fd3ba09F030) |
+| cUSDTv3 (Comet Proxy)              | [0x3Afdc9BCA9213A35503b077a6072F3D0d5AB0840](https://etherscan.io/address/0x3Afdc9BCA9213A35503b077a6072F3D0d5AB0840) |
+| cUSDTv3 (Comet Implementation)     | [0xf930618E2202e6A2a20606AE89ef7406974622e7](https://etherscan.io/address/0xf930618E2202e6A2a20606AE89ef7406974622e7) |
+| cUSDTv3 Ext                        | [0x5C58d4479A1E9b2d19EE052143FA73F0ee79A36e](https://etherscan.io/address/0x5C58d4479A1E9b2d19EE052143FA73F0ee79A36e) |
+| cwstETHv3 (Comet Proxy)            | [0x3D0bb1ccaB520A66e607822fC55BC921738fAFE3](https://etherscan.io/address/0x3D0bb1ccaB520A66e607822fC55BC921738fAFE3) |
+| cwstETHv3 (Comet Implementation)   | [0x25DabAB0c230131aaE9B312Ce1591934f43e024A](https://etherscan.io/address/0x25DabAB0c230131aaE9B312Ce1591934f43e024A) |
+| cwstETHv3 Ext                      | [0x995E394b8B2437aC8Ce61Ee0bC610D617962B214](https://etherscan.io/address/0x995E394b8B2437aC8Ce61Ee0bC610D617962B214) |
+| cUSDSv3 (Comet Proxy)              | [0x5D409e56D886231aDAf00c8775665AD0f9897b56](https://etherscan.io/address/0x5D409e56D886231aDAf00c8775665AD0f9897b56) |
+| cUSDSv3 (Comet Implementation)     | [0xBEBbC5Fc967D8425CF96e97838249eBc9495F9A3](https://etherscan.io/address/0xBEBbC5Fc967D8425CF96e97838249eBc9495F9A3) |
+| cUSDSv3 Ext                        | [0x95DeDD64b551F05E9f59a101a519B024b6b116E7](https://etherscan.io/address/0x95DeDD64b551F05E9f59a101a519B024b6b116E7) |
+| Bulker                             | [0x74a81F84268744a40FEBc48f8b812a1f188D80C3](https://etherscan.io/address/0x74a81F84268744a40FEBc48f8b812a1f188D80C3) |
+| Configurator (Proxy)               | [0x316f9708bB98af7dA9c68C1C3b5e79039cD336E3](https://etherscan.io/address/0x316f9708bB98af7dA9c68C1C3b5e79039cD336E3) |
+| Configurator (Implementation)      | [0xcFC1fA6b7ca982176529899D99af6473aD80DF4F](https://etherscan.io/address/0xcFC1fA6b7ca982176529899D99af6473aD80DF4F) |
+| Proxy Admin (Comet, Configurator)  | [0x1EC63B5883C3481134FD50D5DAebc83Ecd2E8779](https://etherscan.io/address/0x1EC63B5883C3481134FD50D5DAebc83Ecd2E8779) |
+| Proxy Admin (Compound Governor)    | [0x725ed7f44f0888aec1b7630ab1acdced91e0591a](https://etherscan.io/address/0x725ed7f44f0888aec1b7630ab1acdced91e0591a) |
+| Comet Factory                      | [0xa7F7De6cCad4D83d81676717053883337aC2c1b4](https://etherscan.io/address/0xa7F7De6cCad4D83d81676717053883337aC2c1b4) |
+| Rewards                            | [0x1B0e765F6224C21223AeA2af16c1C46E38885a40](https://etherscan.io/address/0x1B0e765F6224C21223AeA2af16c1C46E38885a40) |
+| Compound Governor (Proxy)          | [0x309a862bbC1A00e45506cB8A802D1ff10004c8C0](https://etherscan.io/address/0x309a862bbC1A00e45506cB8A802D1ff10004c8C0) |
 | Compound Governor (Implementation) | [0x501Eb63A2120418C581B3bD31CF190b0a0616752](https://etherscan.io/address/0x501Eb63A2120418C581B3bD31CF190b0a0616752) |
-| TimeLock | [0x6d903f6003cca6255D85CcA4D3B5E5146dC33925](https://etherscan.io/address/0x6d903f6003cca6255D85CcA4D3B5E5146dC33925) |
-| Comp | [0xc00e94Cb662C3520282E6f5717214004A7f26888](https://etherscan.io/address/0xc00e94Cb662C3520282E6f5717214004A7f26888) |
+| TimeLock                           | [0x6d903f6003cca6255D85CcA4D3B5E5146dC33925](https://etherscan.io/address/0x6d903f6003cca6255D85CcA4D3B5E5146dC33925) |
+| Comp                               | [0xc00e94Cb662C3520282E6f5717214004A7f26888](https://etherscan.io/address/0xc00e94Cb662C3520282E6f5717214004A7f26888) |
 
 ## Permission owners
 
