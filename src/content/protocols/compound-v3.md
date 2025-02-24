@@ -38,7 +38,7 @@ When assuming that the governance could be hijacked and the `ProposalGuardian` a
 
 ## Autonomy
 
-The protocol uses Chainlink's oracle to get the price of the base token. There are no fallback mechanisms if the oracle fails. It may be replaced only with a contract upgrade triggered from the DAO (5+ days delay).
+The system has one dependency. The protocol uses Chainlink's oracle to get the price of assets. There are no fallback mechanisms if the oracle fails. It may be replaced only with a contract upgrade through a governance proposal (5+ days delay).
 
 > Autonomy score: Low
 
