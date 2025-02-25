@@ -29,10 +29,14 @@ The initial deployment of Compound III is on Ethereum mainnet.
 
 ## Upgradeability
 
-The `Comet`s, `Configuration`, and `Compound Governor` contracts can be changed at any time with a delay of 2 days once a governance proposal is accepted. The `Comet`s are deployed by the `Comet Factory` using the `Configurator`. The `Configurator` holds the parameters of each market. The desired process to update the market is via the configurator that holds the possible market parameters and making the market (with all the funds of a respective base asset) point to this new logic. A `PauseGuardian` (security council) can pause the markets at any time and a `ProposalGuardian` can cancel goverance proposals
+Compound's upgrade process could potentially allow theft or loss of user funds under extreme circumstances. While upgrades require governance approval, if governance were compromised and the `ProposalGuardian` (security council) failed to cancel malicious proposals, attackers could theoretically deploy malicious contracts that steals all funds not withdrawn during the exit window.
+
+Standard upgrades can modify market parameters through the `Configurator` contract, which controls how each market functions. These changes could potentially alter future yield calculations or alter the risk exposue of deposited funds. The system includes a `PauseGuardian` (security council) that can immediately freeze markets if suspicious activity is detected.
+
+<!-- The `Comet`s, `Configuration`, and `Compound Governor` contracts can be changed at any time with a delay of 2 days once a governance proposal is accepted. The `Comet`s are deployed by the `Comet Factory` using the `Configurator`. The `Configurator` holds the parameters of each market. The desired process to update the market is via the configurator that holds the possible market parameters and making the market (with all the funds of a respective base asset) point to this new logic. A `PauseGuardian` (security council) can pause the markets at any time and a `ProposalGuardian` can cancel goverance proposals
 before execution (incl. upgrades).
 
-When assuming that the governance could be hijacked and the `ProposalGuardian` acts in favor of this hijack (not stoping from enforcement of malicious proposal) then the current implementation does not prohibit that a market gets a completely malicious logic assigned that does not stem from the configurator itself and allows the attacker to steal all funds that were not rescued in the 2-day delay period.
+When assuming that the governance could be hijacked and the `ProposalGuardian` acts in favor of this hijack (not stoping from enforcement of malicious proposal) then the current implementation does not prohibit that a market gets a completely malicious logic assigned that does not stem from the configurator itself and allows the attacker to steal all funds that were not rescued in the 2-day delay period. -->
 
 > Upgradeability score: High
 
