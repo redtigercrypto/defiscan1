@@ -35,7 +35,11 @@ Non-malicious upgrades can modify market parameters through the `Configurator` c
 
 Upgrades happen through governance proposal on Ethereum Mainnet. After a 2 days delay a `Bridge Receiver` receives messages from the mainnet governance and sends them to a local `TimeLock` that ensures the transactions are only executed during the correct execution period, after an additional 1 day delay.
 
+<<<<<<< HEAD
 > Upgradeability score: High
+=======
+> Risk: High
+>>>>>>> 28a1f0b (Rebase on mainnet review)
 
 ## Autonomy
 
