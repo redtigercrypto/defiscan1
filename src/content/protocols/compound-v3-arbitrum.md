@@ -29,18 +29,17 @@ Compound III is deployed on various chains. This review is based on the Arbitrum
 
 ## Upgradeability
 
+Compound allors for thr upgrade of contracts. Those upgrades can change the logic and implementation of the markets and governance, which can result in the loss of funds or the loss of unclaimed yield. To prevent this upgrades are regulated by on-chain governance on Ethereum mainnet and can be cancelled by a security council on called `ProposalGuardian`.
+
+Non-malicious upgrades can modify market parameters through the `Configurator` contract, which controls how each market functions. These changes could potentially alter future yield calculations or alter the risk exposue of deposited funds. The system includes a `PauseGuardian` (security council) that can immediately freeze markets if suspicious activity is detected.
+
 Upgrades happen through governance proposal on Ethereum Mainnet. After a 2 days delay a `Bridge Receiver` receives messages from the mainnet governance and sends them to a local `TimeLock` that ensures the transactions are only executed during the correct execution period, after an additional 1 day delay.
-
-The `Comet`s, `Configuration`, and `Compound Governor` contracts can be changed at any time once a governance proposal is accepted. The `Comet`s are deployed by the `Comet Factory` using the `Configurator`. The `Configurator` holds the parameters of each market. The desired process to update the market is via the configurator that holds the possible market parameters and making the market (with all the funds of a respective base asset) point to this new logic. A `PauseGuardian` (security council) can pause the markets at any time on Arbitrum and a `ProposalGuardian` on Ethereum Mainnet can cancel goverance proposals before execution (incl. upgrades).
-
-When assuming that the governance could be hijacked and the `ProposalGuardian` acts in favor of this hijack (not stoping from enforcement of malicious proposal) then the current implementation does not prohibit that a market gets a completely malicious logic assigned that does not stem from the configurator itself and allows the attacker to steal all funds that were not rescued in the 3-day delay period.
 
 > Risk: High
 
 ## Autonomy
 
-The protocol uses Chainlink's oracle to get the price of the base token. If the oracle fails it may
-be replaced only with a contract upgrade triggered from the DAO (5+ days delay).
+The system has one dependency. The protocol uses Chainlink's oracle to get the price of assets. There are no fallback mechanisms if the oracle fails. It may be replaced only with a contract upgrade through a governance proposal (5+ days delay).
 
 > Risk: Low
 
