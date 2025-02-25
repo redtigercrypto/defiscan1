@@ -25,7 +25,7 @@ Compound III is an EVM compatible protocol that enables supplying of crypto asse
 
 Compound III is deployed on various chains. This review is based on the Arbitrum chain, an Ethereum L2 in Stage 1 according to L2BEAT.
 
-> Risk: Medium
+> Chain score: Medium
 
 ## Upgradeability
 
@@ -35,20 +35,20 @@ Non-malicious upgrades can modify market parameters through the `Configurator` c
 
 Upgrades happen through governance proposal on Ethereum Mainnet. After a 2 days delay a `Bridge Receiver` receives messages from the mainnet governance and sends them to a local `TimeLock` that ensures the transactions are only executed during the correct execution period, after an additional 1 day delay.
 
-> Risk: High
+> Upgradeability score: High
 
 ## Autonomy
 
 The system has one dependency. The protocol uses Chainlink's oracle to get the price of assets. There are no fallback mechanisms if the oracle fails. It may be replaced only with a contract upgrade through a governance proposal (5+ days delay).
 
-> Risk: Low
+> Autonomy score: Low
 
 ## Exit Window
 
 Once an upgrade is approved by the governance on the mainnet there is a total delay of 3 days allowing users to react before the proposal can be executed on Arbitrum. Anyone with more than 25'000 Comp can create a proposal, each proposal has a minimum voting time of 3 days and requires at least 400'000 votes to be valid. A malicious upgrade could hijack user funds if it is not blocked by the `ProposalGuardian`.
 In addition to that, the tranfers/deposits/withdrawals can be paused by the `PauseGuardian` (Security Council) with no delay, freezing all assets.
 
-> Risk: High
+> Exit Window score: High
 
 ## Accessibility
 
@@ -56,7 +56,7 @@ The frontend of Compound V3 is open source. Instructions to deploy it locally or
 on IPFS are available [here](https://github.com/compound-finance/palisade). There is no registry
 of alternative deployments.
 
-> Risk: Medium
+> Accessibility score: Medium
 
 # Technical Analysis
 
