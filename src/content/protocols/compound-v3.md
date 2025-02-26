@@ -66,6 +66,19 @@ of alternative deployments.
 
 > Accessibility score: Medium
 
+## Conclusion
+
+This deployment of Compound V3 on Ethereum mainnet achieves a low risk score for Chain and Autonomy, but a medium risk score for Accessibility and a high risk score for Upgradeability and Exit Window.
+Given the high risk score of Upgradeability and Exit Window, the overall project can only achieve a **stage 0**.
+Although there is a security council that could bring the project to a stage 1, the security council does not meet all our requirements.
+
+### Avice for improvement
+
+Compound V3 could become stage 1 by increasing the security council's threshold. The upgradeadbility could be highly increased by enforcing that the upgrade process prevents redeployments of `Comet` not deployed by the `CometFactory` and abandoning ownership to of the `Configurator` and `CompoundGovernor` proxies.
+The Accessibility could be easily enhanced to a low risk by deploying the frontend on IPFS and listing multiple access points on the [frontend repository](https://github.com/compound-finance/palisade).
+
+> Overall score: Stage 0
+
 # Technical Analysis
 
 Below is an overview of the contracts from the Compound V3 protocol.
