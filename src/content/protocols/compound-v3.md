@@ -74,7 +74,7 @@ Although there is a security council that could bring the project to a stage 1, 
 
 ### Avice for improvement
 
-Compound V3 could become stage 1 by increasing the security council's threshold to be above 50% of signers. The upgradeadbility could be highly increased by enforcing that the upgrade process prevents redeployments of a `Comet` not deployed by the `CometFactory` and abandoning ownership to of the `Configurator` and `CompoundGovernor` proxies.
+Compound V3 could become stage 1 by increasing the security council's threshold to be above 50% of signers. The upgradeadbility could be highly increased by enforcing that the upgrade process prevents redeployments of a `Comet` not deployed by the `CometFactory` and abandoning ownership of the `Configurator` and `CompoundGovernor` proxies.
 The Accessibility could be easily enhanced to a low risk by deploying the frontend on IPFS and listing multiple access points on the [frontend repository](https://github.com/compound-finance/palisade).
 
 > Overall score: Stage 0
