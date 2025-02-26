@@ -68,6 +68,15 @@ of alternative deployments.
 
 ## Conclusion
 
+Deposited assets can be lost by malicious or faulty updates (low [upgradability](#upgradeability) score).
+The updates are guarded by the on-chain DAO which is good for operational security,
+but our framework requires that the exit window for DAO steered updates is at least 7 days for stage 1 and 30 days for stage 2.
+Therefore, the protocol ranks stage 0. The protocol could reach stage 1, by following the [security council](#security-council)
+requirements or increasing the exit window to 7 days, or reach stage 2 by extending the exit window of the DAO to 30 days.
+
+> Overall score: Stage 0
+
+<!--
 This deployment of Compound V3 on Ethereum mainnet achieves a low risk score for Chain and Autonomy, but a medium risk score for Accessibility and a high risk score for Upgradeability and Exit Window.
 Given the high risk score of Upgradeability and Exit Window, the overall project can only achieve a **stage 0**.
 Although there is a security council that could bring the project to a stage 1, the security council does not meet all our requirements.
@@ -76,8 +85,7 @@ Although there is a security council that could bring the project to a stage 1, 
 
 Compound V3 could become stage 1 by increasing the security council's threshold to be above 50% of signers. The upgradeadbility could be highly increased by enforcing that the upgrade process prevents redeployments of a `Comet` not deployed by the `CometFactory` and abandoning ownership of the `Configurator` and `CompoundGovernor` proxies.
 The Accessibility could be easily enhanced to a low risk by deploying the frontend on IPFS and listing multiple access points on the [frontend repository](https://github.com/compound-finance/palisade).
-
-> Overall score: Stage 0
+ -->
 
 # Technical Analysis
 
