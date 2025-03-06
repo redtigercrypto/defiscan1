@@ -7,7 +7,7 @@ defillama_slug: ["compound-v3"]
 chain: "Ethereum"
 stage: 0
 reasons: []
-risks: ["L", "H", "L", "H", "M"]
+risks: ["L", "H", "H", "H", "M"]
 author: ["mmilien_"]
 submission_date: "2025-01-26"
 publish_date: "1970-01-01"
@@ -18,8 +18,6 @@ update_date: "1970-01-01"
 # Summary
 
 Compound-v3 is a lending protocol that accepts a base asset as liquidity and allows borrowing this bas asset with a variety of other assets as collateral. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Each base asset represents an isolated lending market managed by a separate instance of the protocol. Compound governance is able to update various parameters for each of these markets.
-
-<!-- Compound III is an EVM compatible protocol that enables supplying of crypto assets as collateral in order to borrow the base asset. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Accounts can also earn interest by supplying the base asset to the protocol. The market logic of each base asset is implemented in respective `Comet` contracts. -->
 
 # Overview
 
@@ -36,10 +34,6 @@ The Compound-v3 protocol is fully upgradeable allowing for the update of governa
 The permission to upgrade the protocol is controlled by an onchain governance system with COMP token holders submitting and voting on respective proposals. A multisig account, the ProposalGuardian, has the permission to cancel proposals to mitigate the risk of malicious or otherwise unintended proposals. This role can potentially be abused to censor proposals.
 
 Furthermore, another multisig account, the PauseGuardian, has the permission to pause markets, disabling depositing and withdrawing assets, if suspicious activity is detected. This role can potentially be abused to freeze funds and unclaimed yield in the protocol.
-
-<!--
-
-Non-malicious upgrades can modify market parameters through the `Configurator` contract, which controls how each market functions. These changes could potentially alter future yield calculations or alter the risk exposue of deposited funds. The system includes a `PauseGuardian` (security council) that can immediately freeze markets if suspicious activity is detected. -->
 
 > Upgradeability score: High
 
@@ -223,9 +217,9 @@ The process is illustrated below.
 A security council called `Pause Guardian` has the power to pause all deposits, withdrawals, and transfers
 in the protocol. The guardian is currently a 4/8 multisig made of Compound DAO community members. The signers are announced [here](https://www.comp.xyz/t/community-multisig-4-of-6-deployment/134/18). The same multisig is also `Proposal Guardian` and has the power to cancel Governance Proposals before their executions.
 
-| Requirement                                             | Pause Guardian |
-| ------------------------------------------------------- | -------------- |
-| At least 7 signers                                      | ✅             |
-| At least 51% threshold                                  | ❌             |
-| At least 50% non-team signers                           | ✅             |
-| Signers are publicly announced (with name or pseudonym) | ✅             |
+| Requirement                                             | Pause Guardian | Proposal Guardian |
+| ------------------------------------------------------- | -------------- | ----------------- |
+| At least 7 signers                                      | ✅             | ✅                |
+| At least 51% threshold                                  | ❌             | ❌                |
+| At least 50% non-team signers                           | ✅             | ✅                |
+| Signers are publicly announced (with name or pseudonym) | ✅             | ✅                |
