@@ -37,6 +37,7 @@ Upgrades happen through governance proposal on Ethereum Mainnet. After a 2 days 
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 > Upgradeability score: High
 =======
 > Risk: High
@@ -44,6 +45,9 @@ Upgrades happen through governance proposal on Ethereum Mainnet. After a 2 days 
 =======
 > Upgradeability score: High
 >>>>>>> 4dd7be1 (edit score / risk)
+=======
+> Upgradeability score: High
+>>>>>>> 2e3403b805d566f8f79bb59e15a2305c3d06e472
 
 ## Autonomy
 
