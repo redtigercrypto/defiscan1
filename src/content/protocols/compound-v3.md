@@ -7,7 +7,7 @@ defillama_slug: ["compound-v3"]
 chain: "Ethereum"
 stage: 0
 reasons: []
-risks: ["L", "H", "H", "H", "M"]
+risks: ["L", "H", "H", "H", "L"]
 author: ["mmilien_"]
 submission_date: "2025-01-26"
 publish_date: "1970-01-01"
@@ -61,7 +61,7 @@ The frontend of Compound V3 is open source. Instructions to deploy it locally or
 on IPFS are available [here](https://github.com/compound-finance/palisade). However, the frontend depends on a separate backend that is accessed through [v3-api.compound.finance/](https://v3-api.compound.finance/). Therefore, self-hosting does not help if the backend is down.
 Nonetheless, compound is supported on third-party apps like DeFiSaver. These apps build an acceptable backup solution in case of failure of the official frontend and backend.
 
-> Accessibility score: Medium
+> Accessibility score: Low
 
 ## Conclusion
 
