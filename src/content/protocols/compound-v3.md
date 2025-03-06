@@ -6,7 +6,7 @@ github: ["https://github.com/compound-finance/compound-protocol"]
 defillama_slug: ["compound-v3"]
 chain: "Ethereum"
 stage: 0
-reasons: ["Incorrect Docs"]
+reasons: []
 risks: ["L", "H", "L", "H", "M"]
 author: ["mmilien_"]
 submission_date: "2025-01-26"
@@ -17,44 +17,47 @@ update_date: "1970-01-01"
 
 # Summary
 
-Compound III is an EVM compatible protocol that enables supplying of crypto assets as collateral in order to borrow the base asset. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Accounts can also earn interest by supplying the base asset to the protocol. The market logic of each base asset is implemented in respective `Comet` contracts.
+Compound-v3 is a lending protocol that accepts a base asset as liquidity and allows borrowing this bas asset with a variety of other assets as collateral. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Each base asset represents an isolated lending market managed by a separate instance of the protocol. Compound governance is able to update various parameters for each of these markets.
+
+<!-- Compound III is an EVM compatible protocol that enables supplying of crypto assets as collateral in order to borrow the base asset. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Accounts can also earn interest by supplying the base asset to the protocol. The market logic of each base asset is implemented in respective `Comet` contracts. -->
 
 # Overview
 
 ## Chain
 
-The initial deployment of Compound III is on Ethereum mainnet.
+Compound-v3 is deployed on various chains. This review is based on the Ethereum mainnet deployment.
 
 > Chain score: Low
 
 ## Upgradeability
 
-Compound allors for thr upgrade of contracts. Those upgrades can change the logic and implementation of the markets and governance, which can result in the loss of funds or the loss of unclaimed yield. To prevent this upgrades are regulated by on-chain governance and can be cancelled by a security council called `ProposalGuardian`.
+The Compound-v3 protocol is fully upgradeable allowing for the update of governance and markets logic and state (specifically the Governance and Comet implementation contracts). This can result in the loss of funds or unclaimed yield as well as lead to other changes in the expected performance of the protocol.
 
-Non-malicious upgrades can modify market parameters through the `Configurator` contract, which controls how each market functions. These changes could potentially alter future yield calculations or alter the risk exposue of deposited funds. The system includes a `PauseGuardian` (security council) that can immediately freeze markets if suspicious activity is detected.
+The permission to upgrade the protocol is controlled by an onchain governance system with COMP token holders submitting and voting on respective proposals. A multisig account, the ProposalGuardian, has the permission to cancel proposals to mitigate the risk of malicious or otherwise unintended proposals. This role can potentially be abused to censor proposals.
+
+Furthermore, another multisig account, the PauseGuardian, has the permission to pause markets, disabling depositing and withdrawing assets, if suspicious activity is detected. This role can potentially be abused to freeze funds and unclaimed yield in the protocol.
 
 <!--
 
-Compound's upgrade process could potentially allow theft or loss of user funds under extreme circumstances. While upgrades require governance approval, if governance were compromised and the `ProposalGuardian` (security council) failed to cancel malicious proposals, attackers could theoretically deploy malicious contracts that steals all funds not withdrawn during the exit window.
-
-
- The `Comet`s, `Configuration`, and `Compound Governor` contracts can be changed at any time with a delay of 2 days once a governance proposal is accepted. The `Comet`s are deployed by the `Comet Factory` using the `Configurator`. The `Configurator` holds the parameters of each market. The desired process to update the market is via the configurator that holds the possible market parameters and making the market (with all the funds of a respective base asset) point to this new logic. A `PauseGuardian` (security council) can pause the markets at any time and a `ProposalGuardian` can cancel goverance proposals
-before execution (incl. upgrades).
-
-When assuming that the governance could be hijacked and the `ProposalGuardian` acts in favor of this hijack (not stoping from enforcement of malicious proposal) then the current implementation does not prohibit that a market gets a completely malicious logic assigned that does not stem from the configurator itself and allows the attacker to steal all funds that were not rescued in the 2-day delay period. -->
+Non-malicious upgrades can modify market parameters through the `Configurator` contract, which controls how each market functions. These changes could potentially alter future yield calculations or alter the risk exposue of deposited funds. The system includes a `PauseGuardian` (security council) that can immediately freeze markets if suspicious activity is detected. -->
 
 > Upgradeability score: High
 
 ## Autonomy
 
-The system has one dependency. The protocol uses Chainlink's oracle to get the price of assets. There are no fallback mechanisms if the oracle fails. It may be replaced only with a contract upgrade through a governance proposal (5+ days delay).
+The compound-v3 protocol relies on a Chainlink oracle feed to price collateral and base assets in the system. The protocol does not validate asset prices returned by Chainlink or offer a fallback oracle mechanism. The replacement of a stale or untrusted oracle feed requires a Compound governance vote with a delay (see Exit Window).
 
-> Autonomy score: Low
+The Chainlink oracle system itself is upgradeable without decentralized ownership over those permissions. This dependency thus introduces centralization risk in the Compound-v3 protocol.
+
+> Autonomy score: High
 
 ## Exit Window
 
-Once an upgrade is approved by the governance there is a delay of 2 days allowing users to react. Anyone with more than 25'000 Comp can create a proposal, each proposal has a minimum voting time of 3 days and requires at least 400'000 votes to be valid. A malicious upgrade could hijack user funds if it is not blocked by the `ProposalGuardian`.
-In addition to that, the tranfers/deposits/withdrawals can be paused by the `PauseGuardian` (Security Council) with no delay, freezing all assets.
+Permissions, including protocol upgrades, are controlled by an onchain governance system. COMP holders are able to create new proposals (requires 25,000 COMP) and vote on proposals (at least 400,000 votes are required for a valid proposal). A minimum voting period of 3 days is enforced as well as a delay of 2 days for the implementation of successful proposals.
+
+While this does not meet the 7-day exit window requirement, malicious or unintended proposals can be intercepted by the `ProposalGuardian` multisig account.
+
+However, both the `ProposalGuardian` and the `PauseGuardian` multisig accounts do not meet the Security Council requirements ([see below](#security-council)).
 
 > Exit Window score: High
 
@@ -68,24 +71,11 @@ of alternative deployments.
 
 ## Conclusion
 
-Deposited assets can be lost by malicious or faulty updates (low [upgradability](#upgradeability) score).
-The updates are guarded by the on-chain DAO which is good for operational security,
-but our framework requires that the exit window for DAO steered updates is at least 7 days for stage 1 and 30 days for stage 2.
-Therefore, the protocol ranks stage 0. The protocol could reach stage 1, by following the [security council](#security-council)
-requirements or increasing the exit window to 7 days, or reach stage 2 by extending the exit window of the DAO to 30 days.
+The Compound-v3 Ethereum mainnet protocol achieves Low decentralization scores for its Upgradeability, Autonomy and Exit Window dimensions. It thus ranks Stage 0.
+
+The protocol could reach Stage 1 by 1) adopting a Security Council setup for the ProposalGuardian and PauseGuardian multisig accounts, and 2) implementing validity checks and a fallback mechanism around the Chainlink oracle (or Chainlink adopting a Security Council setup for its own multisig account).
 
 > Overall score: Stage 0
-
-<!--
-This deployment of Compound V3 on Ethereum mainnet achieves a low risk score for Chain and Autonomy, but a medium risk score for Accessibility and a high risk score for Upgradeability and Exit Window.
-Given the high risk score of Upgradeability and Exit Window, the overall project can only achieve a **stage 0**.
-Although there is a security council that could bring the project to a stage 1, the security council does not meet all our requirements.
-
-### Avice for improvement
-
-Compound V3 could become stage 1 by increasing the security council's threshold to be above 50% of signers. The upgradeadbility could be highly increased by enforcing that the upgrade process prevents redeployments of a `Comet` not deployed by the `CometFactory` and abandoning ownership of the `Configurator` and `CompoundGovernor` proxies.
-The Accessibility could be easily enhanced to a low risk by deploying the frontend on IPFS and listing multiple access points on the [frontend repository](https://github.com/compound-finance/palisade).
- -->
 
 # Technical Analysis
 
@@ -208,8 +198,9 @@ represented once as `Comet Proxy` and `Comet Implementation`in the table above.
 
 ## Dependencies
 
-The protocol uses Chainlink's oracle to get the price of the base token. There are no fallback mechanisms if the oracle fails. It may be replaced only with a contract upgrade triggered from the DAO (5+ days delay). The returned price is
-only checked to be a positive non-zero value, the timestamp of the latest price update is ignored.
+The compound-v3 protocol relies on a Chainlink oracle feed to price collateral and base assets in the system. The protocol does not validate asset prices returned by Chainlink feeds other than checking for a zero-value. The protocol further does not offer a fallback pricing mechanism in case the Chainlink oracle feeds are stale or untrusted. If not performing as expected, Chainlink oracle feeds can only be replaced through a regular Compound governance proposal with a delay (see Exit Window).
+
+The Chainlink oracle system itself is upgradeable potentially resulting in the publishing of unintended or malicious prices. The permissions to upgrade are controlled by a [multisig account](https://etherscan.io/address/0x21f73D42Eb58Ba49dDB685dc29D3bF5c0f0373CA) with a 4-of-9 signers threshold. This multisig account is listed in the Chainlink docs but signers are not publicly announced. The Chainlink multisig thus does not suffice the Security Council requirements specified by either L2Beat or DeFiScan resulting in a High centralization score.
 
 ## Upgrade process
 
