@@ -29,11 +29,11 @@ Compound III is deployed on various chains. This review is based on the Arbitrum
 
 ## Upgradeability
 
-The Compound-v3 protocol is fully upgradeable allowing for the update of governance and markets logic and state (specifically the Governance and Comet implementation contracts). This can result in the loss of funds or unclaimed yield as well as lead to other changes in the expected performance of the protocol.
+The Compound-v3 protocol is fully upgradeable allowing for the update of governance and markets logic and state (specifically the `Governance` and `Comet` implementation contracts). This can result in the loss of funds or unclaimed yield as well as lead to other changes in the expected performance of the protocol.
 
-The permission to upgrade the protocol is controlled by an onchain governance system with COMP token holders submitting and voting on respective proposals. A multisig account, the ProposalGuardian, has the permission to cancel proposals to mitigate the risk of malicious or otherwise unintended proposals. This role can potentially be abused to censor proposals.
+The permission to upgrade the protocol is controlled by an onchain governance system with `COMP` token holders submitting and voting on respective proposals. A multisig account, the `ProposalGuardian`, has the permission to cancel proposals to mitigate the risk of malicious or otherwise unintended proposals. This role can potentially be abused to censor proposals.
 
-Furthermore, another multisig account, the PauseGuardian, has the permission to pause markets, disabling depositing and withdrawing assets, if suspicious activity is detected. This role can potentially be abused to freeze funds and unclaimed yield in the protocol.
+Furthermore, another multisig account, the `PauseGuardian`, has the permission to pause markets, disabling depositing and withdrawing assets, if suspicious activity is detected. This role can potentially be abused to freeze funds and unclaimed yield in the protocol.
 
 Upgrades happen through governance proposal on Ethereum Mainnet. A `Bridge Receiver` receives messages from the mainnet governance and sends them to a local `TimeLock` that ensures the transactions are only executed during the correct execution period, after a delay.
 
@@ -41,7 +41,7 @@ Upgrades happen through governance proposal on Ethereum Mainnet. A `Bridge Recei
 
 ## Autonomy
 
-The compound-v3 protocol relies on a Chainlink oracle feed to price collateral and base assets in the system. The protocol does not validate asset prices returned by Chainlink or offer a fallback oracle mechanism. The replacement of a stale or untrusted oracle feed requires a Compound governance vote with a delay (see Exit Window).
+The compound-v3 protocol relies on a Chainlink oracle feed to price collateral and base assets in the system. The protocol does not validate asset prices returned by Chainlink or offer a fallback oracle mechanism. The replacement of a stale or untrusted oracle feed requires a Compound governance vote with a delay (see [Exit Window](#exit-window)).
 
 The Chainlink oracle system itself is upgradeable without decentralized ownership over those permissions. This dependency thus introduces centralization risk in the Compound-v3 protocol.
 
@@ -49,27 +49,27 @@ The Chainlink oracle system itself is upgradeable without decentralized ownershi
 
 ## Exit Window
 
-Permissions, including protocol upgrades, are controlled by an onchain governance system on Ethereum mainnet. COMP holders are able to create new proposals (requires 25,000 COMP) and vote on proposals (at least 400,000 votes are required for a valid proposal). A minimum voting period of 3 days is enforced as well as a delay of 3 days for the implementation of successful proposals.
+Permissions, including protocol upgrades, are controlled by an onchain governance system on Ethereum mainnet. `COMP` holders are able to create new proposals (requires 25,000 `COMP`) and vote on proposals (at least 400,000 votes are required for a valid proposal). A minimum voting period of 3 days is enforced as well as a delay of 3 days for the implementation of successful proposals.
 
 While this does not meet the 7-day exit window requirement, malicious or unintended proposals can be intercepted by the `ProposalGuardian` multisig account.
 
-However, both the `ProposalGuardian` and the `PauseGuardian` multisig accounts do not meet the Security Council requirements ([see below](#security-council)).
+However, the `ProposalGuardian` multisig accounts does not meet the Security Council requirements ([see below](#security-council)).
 
 > Exit Window score: High
 
 ## Accessibility
 
 The frontend of Compound V3 is open source. Instructions to deploy it locally or deploy it
-on IPFS are available [here](https://github.com/compound-finance/palisade). There is no registry
-of alternative deployments.
+on IPFS are available [here](https://github.com/compound-finance/palisade). However, the frontend depends on a separate backend that is accessed through [v3-api.compound.finance/](https://v3-api.compound.finance/). Therefore, self-hosting does not help if the backend is down.
+Nonetheless, compound is supported on third-party apps like DeFiSaver. These apps build an acceptable backup solution in case of failure of the official frontend and backend.
 
 > Accessibility score: Medium
 
 ## Conclusion
 
-The Compound-v3 Arbitrum protocol achieves Low decentralization scores for its Upgradeability, Autonomy and Exit Window dimensions. It thus ranks Stage 0.
+The Compound-v3 Ethereum mainnet protocol achieves Low decentralization scores for its _Upgradeability_, _Autonomy_ and _Exit Window_ dimensions. It thus ranks Stage 0.
 
-The protocol could reach Stage 1 by 1) adopting a Security Council setup for the mainnet ProposalGuardian multisig accounts, and 2) implementing validity checks and a fallback mechanism around the Chainlink oracle (or Chainlink adopting a Security Council setup for its own multisig account).
+The protocol could reach Stage 1 by 1) adopting a _Security Council_ setup for the `ProposalGuardian` multisig accounts, and 2) implementing validity checks and a fallback mechanism around the Chainlink oracle (or Chainlink adopting a _Security Council_ setup for its own multisig account).
 
 > Overall score: Stage 0
 
@@ -110,9 +110,10 @@ Below is an overview of the contracts from the Compound V3 protocol.
 
 | Name                    | Account                                                                                                               | Type         |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Pause Guardian          | [0x78E6317DD6D43DdbDa00Dce32C2CbaFc99361a9d](https://etherscan.io/address/0x78E6317DD6D43DdbDa00Dce32C2CbaFc99361a9d) | Multisig 4/7 |
-| Arbitrum TimeLock       | [0x3fB4d38ea7EC20D91917c09591490Eeda38Cf88A](https://etherscan.io/address/0x3fB4d38ea7EC20D91917c09591490Eeda38Cf88A) | Contract     |
-| Arbitrum BridgeReceiver | [0x42480C37B249e33aABaf4c22B20235656bd38068](https://etherscan.io/address/0x42480C37B249e33aABaf4c22B20235656bd38068) | Contract     |
+| Pause Guardian          | [0x78E6317DD6D43DdbDa00Dce32C2CbaFc99361a9d](https://arbiscan.io/address/0x78E6317DD6D43DdbDa00Dce32C2CbaFc99361a9d)  | Multisig 4/7 |
+| Proposal Guardian       | [0xbbf3f1421D886E9b2c5D716B5192aC998af2012c](https://etherscan.io/address/0xbbf3f1421D886E9b2c5D716B5192aC998af2012c) | Multisig 4/8 |
+| Arbitrum TimeLock       | [0x3fB4d38ea7EC20D91917c09591490Eeda38Cf88A](https://arbiscan.io/address/0x3fB4d38ea7EC20D91917c09591490Eeda38Cf88A)  | Contract     |
+| Arbitrum BridgeReceiver | [0x42480C37B249e33aABaf4c22B20235656bd38068](https://arbiscan.io/address/0x42480C37B249e33aABaf4c22B20235656bd38068)  | Contract     |
 
 ## Permissions
 
