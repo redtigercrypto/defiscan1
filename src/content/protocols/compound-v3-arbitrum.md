@@ -35,19 +35,7 @@ Non-malicious upgrades can modify market parameters through the `Configurator` c
 
 Upgrades happen through governance proposal on Ethereum Mainnet. After a 2 days delay a `Bridge Receiver` receives messages from the mainnet governance and sends them to a local `TimeLock` that ensures the transactions are only executed during the correct execution period, after an additional 1 day delay.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 > Upgradeability score: High
-=======
-> Risk: High
->>>>>>> 28a1f0b (Rebase on mainnet review)
-=======
-> Upgradeability score: High
->>>>>>> 4dd7be1 (edit score / risk)
-=======
-> Upgradeability score: High
->>>>>>> 2e3403b805d566f8f79bb59e15a2305c3d06e472
 
 ## Autonomy
 
@@ -105,11 +93,11 @@ Below is an overview of the contracts from the Compound V3 protocol.
 
 ## Permission owners
 
-| Name                   | Account                                                                                                               | Type         |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Pause Guardian         | [0x78E6317DD6D43DdbDa00Dce32C2CbaFc99361a9d](https://etherscan.io/address/0x78E6317DD6D43DdbDa00Dce32C2CbaFc99361a9d) | Multisig 4/7 |
-| Arbitrum TimeLock      | [0x3fB4d38ea7EC20D91917c09591490Eeda38Cf88A](https://etherscan.io/address/0x3fB4d38ea7EC20D91917c09591490Eeda38Cf88A) | Contract     |
-| ArbitrumBridgeReceiver | [0x42480C37B249e33aABaf4c22B20235656bd38068](https://etherscan.io/address/0x42480C37B249e33aABaf4c22B20235656bd38068) | Contract     |
+| Name                    | Account                                                                                                               | Type         |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------ |
+| Pause Guardian          | [0x78E6317DD6D43DdbDa00Dce32C2CbaFc99361a9d](https://etherscan.io/address/0x78E6317DD6D43DdbDa00Dce32C2CbaFc99361a9d) | Multisig 4/7 |
+| Arbitrum TimeLock       | [0x3fB4d38ea7EC20D91917c09591490Eeda38Cf88A](https://etherscan.io/address/0x3fB4d38ea7EC20D91917c09591490Eeda38Cf88A) | Contract     |
+| Arbitrum BridgeReceiver | [0x42480C37B249e33aABaf4c22B20235656bd38068](https://etherscan.io/address/0x42480C37B249e33aABaf4c22B20235656bd38068) | Contract     |
 
 ## Permissions
 
