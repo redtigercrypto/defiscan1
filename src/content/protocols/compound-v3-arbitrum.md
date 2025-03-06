@@ -6,8 +6,8 @@ github: ["https://github.com/compound-finance/compound-protocol"]
 defillama_slug: ["compound-v3"]
 chain: "Arbitrum"
 stage: 0
-reasons: ["Incorrect Docs"]
-risks: ["M", "H", "L", "H", "M"]
+reasons: []
+risks: ["M", "H", "H", "H", "M"]
 author: ["mmilien_"]
 submission_date: "2025-02-18"
 publish_date: "1970-01-01"
@@ -17,7 +17,7 @@ update_date: "1970-01-01"
 
 # Summary
 
-Compound III is an EVM compatible protocol that enables supplying of crypto assets as collateral in order to borrow the base asset. Multiple base assets are supported such as USDC.e, USDC, WETH, and USDT. Accounts can also earn interest by supplying the base asset to the protocol. The market logic of each base asset is implemented in respective `Comet`contracts. Those `Comet`s are deployed by the `Comet Factory` using the `Configurator`. The `Configurator` holds the parameters of each market. A new `Comet` contract needs to be deployed every time the parameters of the market change.
+Compound-v3 is a lending protocol that accepts a base asset as liquidity and allows borrowing this bas asset with a variety of other assets as collateral. Multiple base assets are supported such as USDC.e, USDC, WETH, and USDT. Each base asset represents an isolated lending market managed by a separate instance of the protocol. Compound governance is able to update various parameters for each of these markets.
 
 # Overview
 
@@ -29,24 +29,31 @@ Compound III is deployed on various chains. This review is based on the Arbitrum
 
 ## Upgradeability
 
-Compound allors for thr upgrade of contracts. Those upgrades can change the logic and implementation of the markets and governance, which can result in the loss of funds or the loss of unclaimed yield. To prevent this upgrades are regulated by on-chain governance on Ethereum mainnet and can be cancelled by a security council on called `ProposalGuardian`.
+The Compound-v3 protocol is fully upgradeable allowing for the update of governance and markets logic and state (specifically the Governance and Comet implementation contracts). This can result in the loss of funds or unclaimed yield as well as lead to other changes in the expected performance of the protocol.
 
-Non-malicious upgrades can modify market parameters through the `Configurator` contract, which controls how each market functions. These changes could potentially alter future yield calculations or alter the risk exposue of deposited funds. The system includes a `PauseGuardian` (security council) that can immediately freeze markets if suspicious activity is detected.
+The permission to upgrade the protocol is controlled by an onchain governance system with COMP token holders submitting and voting on respective proposals. A multisig account, the ProposalGuardian, has the permission to cancel proposals to mitigate the risk of malicious or otherwise unintended proposals. This role can potentially be abused to censor proposals.
 
-Upgrades happen through governance proposal on Ethereum Mainnet. After a 2 days delay a `Bridge Receiver` receives messages from the mainnet governance and sends them to a local `TimeLock` that ensures the transactions are only executed during the correct execution period, after an additional 1 day delay.
+Furthermore, another multisig account, the PauseGuardian, has the permission to pause markets, disabling depositing and withdrawing assets, if suspicious activity is detected. This role can potentially be abused to freeze funds and unclaimed yield in the protocol.
+
+Upgrades happen through governance proposal on Ethereum Mainnet. A `Bridge Receiver` receives messages from the mainnet governance and sends them to a local `TimeLock` that ensures the transactions are only executed during the correct execution period, after a delay.
 
 > Upgradeability score: High
 
 ## Autonomy
 
-The system has one dependency. The protocol uses Chainlink's oracle to get the price of assets. There are no fallback mechanisms if the oracle fails. It may be replaced only with a contract upgrade through a governance proposal (5+ days delay).
+The compound-v3 protocol relies on a Chainlink oracle feed to price collateral and base assets in the system. The protocol does not validate asset prices returned by Chainlink or offer a fallback oracle mechanism. The replacement of a stale or untrusted oracle feed requires a Compound governance vote with a delay (see Exit Window).
 
-> Autonomy score: Low
+The Chainlink oracle system itself is upgradeable without decentralized ownership over those permissions. This dependency thus introduces centralization risk in the Compound-v3 protocol.
+
+> Autonomy score: High
 
 ## Exit Window
 
-Once an upgrade is approved by the governance on the mainnet there is a total delay of 3 days allowing users to react before the proposal can be executed on Arbitrum. Anyone with more than 25'000 Comp can create a proposal, each proposal has a minimum voting time of 3 days and requires at least 400'000 votes to be valid. A malicious upgrade could hijack user funds if it is not blocked by the `ProposalGuardian`.
-In addition to that, the tranfers/deposits/withdrawals can be paused by the `PauseGuardian` (Security Council) with no delay, freezing all assets.
+Permissions, including protocol upgrades, are controlled by an onchain governance system on Ethereum mainnet. COMP holders are able to create new proposals (requires 25,000 COMP) and vote on proposals (at least 400,000 votes are required for a valid proposal). A minimum voting period of 3 days is enforced as well as a delay of 3 days for the implementation of successful proposals.
+
+While this does not meet the 7-day exit window requirement, malicious or unintended proposals can be intercepted by the `ProposalGuardian` multisig account.
+
+However, both the `ProposalGuardian` and the `PauseGuardian` multisig accounts do not meet the Security Council requirements ([see below](#security-council)).
 
 > Exit Window score: High
 
@@ -57,6 +64,14 @@ on IPFS are available [here](https://github.com/compound-finance/palisade). Ther
 of alternative deployments.
 
 > Accessibility score: Medium
+
+## Conclusion
+
+The Compound-v3 Arbitrum protocol achieves Low decentralization scores for its Upgradeability, Autonomy and Exit Window dimensions. It thus ranks Stage 0.
+
+The protocol could reach Stage 1 by 1) adopting a Security Council setup for the mainnet ProposalGuardian multisig accounts, and 2) implementing validity checks and a fallback mechanism around the Chainlink oracle (or Chainlink adopting a Security Council setup for its own multisig account).
+
+> Overall score: Stage 0
 
 # Technical Analysis
 
@@ -163,14 +178,37 @@ Below is an overview of the contracts from the Compound V3 protocol.
 The permissions for all Comet contracts (USDC, WETH, wsETH, USDT, USDS) are similar and therefore only
 represented once as `Comet Proxy` and `Comet Implementation`in the table above.
 
+## Dependencies
+
+The compound-v3 protocol relies on a Chainlink oracle feed to price collateral and base assets in the system. The protocol does not validate asset prices returned by Chainlink feeds other than checking for a zero-value. The protocol further does not offer a fallback pricing mechanism in case the Chainlink oracle feeds are stale or untrusted. If not performing as expected, Chainlink oracle feeds can only be replaced through a regular Compound governance proposal with a delay (see Exit Window).
+
+The Chainlink oracle system itself is upgradeable potentially resulting in the publishing of unintended or malicious prices. The permissions to upgrade are controlled by a [multisig account](https://etherscan.io/address/0x21f73D42Eb58Ba49dDB685dc29D3bF5c0f0373CA) with a 4-of-9 signers threshold. This multisig account is listed in the Chainlink docs but signers are not publicly announced. The Chainlink multisig thus does not suffice the Security Council requirements specified by either L2Beat or DeFiScan resulting in a High centralization score.
+
+## Upgrade process
+
+Any market parameter change requires a new `Comet` deployment. The process is as follows:
+
+1.  new parameters are set using setters in the `Configurator` contract.
+2.  the `ProxyAdmin` contract uses `deployAndUpgradeTo`:
+    1. Deploys a new comet contract through the `Configurator`, which uses the `CometFactory`.
+    2. Updates the corresponding `Comet Proxy` to point to this newly deployed contract.
+
+A malicious update could simply perform the update to the `Comet Proxy`to introduce a malicious `Comet Implementation` contract, effectively stealing funds.
+This is because the `upgrade` function can still be called by the DAO in addition to `deployAndUpgradeTo`, allowing the DAO to deploy `Comet` contracts not created by the `Configurator`.
+
+The process is illustrated below.
+
+![Update scheme for a comet contract](./compound-v3-update.png)
+
 # Security Council
 
 A security council called `Pause Guardian` has the power to pause all deposits, withdrawals, and transfers
 in the Arbitrum `Comet` contracts. The guardian is currently a 4/7 multisig made of Compound DAO community members and other trusted entities. The signers are announced [here](https://www.comp.xyz/t/community-multisig-4-of-6-deployment/134/18).
+A `Proposal Guardian` on Ethereum Mainnet has the power to cancel Governance Proposals before their executions. It is composed of a 4/8 multisig made of the same entities announced for the `Pause Guardian`, with one additional signer that prevents the `Proposal Guardian` to qualify as a security council according to our requirements.
 
-| Requirement                                             | Pause Guardian |
-| ------------------------------------------------------- | -------------- |
-| At least 7 signers                                      | ✅             |
-| At least 51% threshold                                  | ✅             |
-| At least 50% non-team signers                           | ✅             |
-| Signers are publicly announced (with name or pseudonym) | ✅             |
+| Requirement                                             | Pause Guardian | Proposal Guardian |
+| ------------------------------------------------------- | -------------- | ----------------- |
+| At least 7 signers                                      | ✅             | ✅                |
+| At least 51% threshold                                  | ✅             | ❌                |
+| At least 50% non-team signers                           | ✅             | ✅                |
+| Signers are publicly announced (with name or pseudonym) | ✅             | ✅                |
