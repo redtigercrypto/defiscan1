@@ -58,16 +58,6 @@ const riskData = [
     },
     anchor: "upgradability",
   },
-  /*{
-    category: "Autonomy",
-    risks: {
-      high: "Failure of a dependency may result in the theft or loss of user funds",
-      medium:
-        "Failure of a dependency may result in the theft or loss of unclaimed yield or may otherwise materially change the performance of the system (but user funds remain unaffected)",
-      low: "Failure of a dependency does not materially change the performance of the system (or result in the theft or loss of user funds and unclaimed yield)",
-    },
-    anchor: "autonomy",
-  },*/
   {
     category: "Autonomy",
     risks: {
@@ -130,18 +120,6 @@ const stagesData = [
       '✅ At least "Low" risk score for Chain, Autonomy, Exit Window, Accessibility',
     ],
   },
-  {
-    stage: "Others",
-    description:
-      "The system does not meet basic Stage 0 requirements, or critical information is missing for a complete assessment, and thus cannot be characterized as a DeFi technology.",
-    qualifications: [
-      "✅ Blockchain-based, financial protocol",
-      "❌ Assets are not in custody by a centralized entity",
-      "❌ Public documentation exists that outlines the protocol components and expected performance",
-      "❌ Source-available codebase",
-      "❌ Verified contracts",
-    ],
-  },
 ];
 
 const securityCouncilRequirements = [
@@ -150,6 +128,18 @@ const securityCouncilRequirements = [
   "At least 50% non-insider signers",
   "Signers are publicly announced (with name or pseudonym)",
 ];
+
+const othersData = {
+  description:
+    "The system does not meet basic Stage 0 requirements, or critical information is missing for a complete assessment, and thus cannot be characterized as a DeFi technology.",
+  qualifications: [
+    "✅ Blockchain-based, financial protocol",
+    "❌ Assets are not in custody by a centralized entity",
+    "❌ Public documentation exists that outlines the protocol components and expected performance",
+    "❌ Source-available codebase",
+    "❌ Verified contracts",
+  ]
+}
 
 function createIdFromTitle(title: string) {
   return title
@@ -391,11 +381,40 @@ const SecurityCouncilSection = () => (
           <li key={index}>{requirement}</li>
         ))}
       </ul>
-      <p className="mb-4">
-        These requirements thus translate to a signer base of at least 7 parties, identified through their name or pseudonym, and a threshold qualified by a majority of signers including at least one "outsider". 
+      <p className="mb-4 mt-4">
+        Note that we refer to an "insider" as any party of the "inner circle" of individuals or entities developing, maintaining and operating the protocol, such as the "team members" or a company mandated to perform certain services.
       </p>
       <p className="mb-4">
-        Thereby, "insider" refers to a party that belongs to the "inner circle" of individuals or entities, e.g. a member of the "team" or a company mandated and compensated to perform certain services, and thus cannot offer an unbiased perspective in the signing process.
+        These requirements translate to a set of at least 7 signers, identified through their name or pseudonym, and a threshold qualified by a majority of signers including at least one "outsider". 
+      </p>
+    </div>
+  </>
+);
+
+const OthersSection = () => (
+  <>
+    <a href={`#${createIdFromTitle("Others Protocol Category")}`}>
+      <h1
+        id={createIdFromTitle("Others Protocol Category")}
+        className="mt-10 text-primary font-bold text-2xl sm:text-2xl md:text-3xl lg:text-4xl"
+        style={{ scrollMarginTop: "100px" }}
+      >
+        Others Protocol Category
+      </h1>
+    </a>
+
+    <div className="flex-1 my-6 text-left text-muted-foreground lg:text-start xl:text-base">
+      <p className="mb-4">
+        The stages framework considers a set of basic requirements to enter Stage 0 and qualify as a DeFi protocol. 
+        The <i>Others</i> protocol category captures protocols which are built using blockchain technology and serve a financial use case but do not meet one or more of the Stage 0 requirements:
+      </p>
+      <ul className="list-none text-sm space-y-2">
+        {othersData.qualifications.map((requirement, index) => (
+          <li key={index}>{requirement}</li>
+        ))}
+      </ul>
+      <p className="mt-4">
+        The <i>Others</i> protocol category thus shines a light on protocols which either fail to disclose the required information publicly, such as documentation (aka a Whitepaper) or software source-code, or do not meet basic requirements to qualify as a <i>DeFi</i> protocol.
       </p>
     </div>
   </>
@@ -408,6 +427,7 @@ export default function LearnMorePage() {
       <RisksSection />
       <StagesSection />
       <SecurityCouncilSection />
+      <OthersSection />
     </div>
   );
 }
