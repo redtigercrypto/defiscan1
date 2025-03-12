@@ -408,7 +408,7 @@ const OthersSection = () => (
         The stages framework considers a set of basic requirements to enter Stage 0 and qualify as a DeFi protocol. 
         The <i>Others</i> protocol category captures protocols which are built using blockchain technology and serve a financial use case but do not meet one or more of the Stage 0 requirements:
       </p>
-      <ul className="list-none text-sm space-y-2">
+      <ul className="list-none space-y-2">
         {othersData.qualifications.map((requirement, index) => (
           <li key={index}>{requirement}</li>
         ))}
