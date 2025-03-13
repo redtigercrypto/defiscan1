@@ -75,7 +75,7 @@ The protocol could reach Stage 1 by 1) adopting a _Security Council_ setup for t
 
 Below is an overview of the contracts from the Compound V3 protocol.
 
-![Overview of the compound protocol](./compound-v3-overview.png)
+![Overview of the compound protocol](./diagrams/compound-v3-overview.png)
 
 ## Contracts
 
@@ -210,7 +210,7 @@ This is because the `upgrade` function can still be called by the DAO in additio
 
 The process is illustrated below.
 
-![Update scheme for a comet contract](./compound-v3-update.png)
+![Update scheme for a comet contract](./diagrams/compound-v3-update.png)
 
 # Security Council
 
