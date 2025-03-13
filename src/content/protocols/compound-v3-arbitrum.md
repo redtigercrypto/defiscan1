@@ -77,7 +77,7 @@ The protocol could reach Stage 1 by 1) adopting a _Security Council_ setup for t
 
 Below is an overview of the contracts from the Compound V3 protocol.
 
-![Overview of the compound protocol](./compound-v3-arbitrum-overview.png)
+![Overview of the compound protocol](./diagrams/compound-v3-arbitrum-overview.png)
 
 ⚠️ During our analysis, we noticed many of the contract addresses listed in the [official documentation](https://docs.compound.finance/) are out of date. This is most likely explained by the high frequency of updates to the implementation contracts. The list below was last updated on the 20th of February 2025.
 
@@ -199,7 +199,7 @@ This is because the `upgrade` function can still be called by the DAO in additio
 
 The process is illustrated below.
 
-![Update scheme for a comet contract](./compound-v3-update.png)
+![Update scheme for a comet contract](./diagrams/compound-v3-update.png)
 
 # Security Council
 
