@@ -67,7 +67,7 @@ Nonetheless, compound is supported on third-party apps like DeFiSaver. These app
 
 ## Conclusion
 
-The Compound-v3 Ethereum mainnet protocol achieves Low decentralization scores for its _Upgradeability_, _Autonomy_ and _Exit Window_ dimensions. It thus ranks Stage 0.
+The Compound-v3 Ethereum mainnet protocol achieves High centralization risk scores for its _Upgradeability_, _Autonomy_ and _Exit Window_ dimensions. It thus ranks Stage 0.
 
 The protocol could reach Stage 1 by 1) adopting a _Security Council_ setup for the `ProposalGuardian` multisig accounts, and 2) implementing validity checks and a fallback mechanism around the Chainlink oracle (or Chainlink adopting a _Security Council_ setup for its own multisig account).
 
@@ -204,12 +204,12 @@ The process is illustrated below.
 # Security Council
 
 A security council called `Pause Guardian` has the power to pause all deposits, withdrawals, and transfers
-in the Arbitrum `Comet` contracts. The guardian is currently a 4/7 multisig made of Compound DAO community members and other trusted entities. The signers are announced [here](https://www.comp.xyz/t/community-multisig-4-of-6-deployment/134/18).
-A `Proposal Guardian` on Ethereum Mainnet has the power to cancel Governance Proposals before their executions. It is composed of a 4/8 multisig made of the same entities announced for the `Pause Guardian`, with one additional signer that prevents the `Proposal Guardian` to qualify as a security council according to our requirements.
+in the Arbitrum `Comet` contracts. The guardian is currently a 4/7 multisig made of a diverse set of signers including more than 50% outsiders (community members, non-affiliated entities). The signers are announced [here](https://www.comp.xyz/t/community-multisig-4-of-6-deployment/134/18).
+A `Proposal Guardian` on Ethereum Mainnet has the power to cancel Governance Proposals before their executions. It is composed of a 4/8 multisig made of the same entities announced for the `Pause Guardian`, with one additional signer that prevents the `Proposal Guardian` to qualify as a security council according to our requirements. Its signers set however does not match the announced signers.
 
 | Requirement                                             | Pause Guardian | Proposal Guardian |
 | ------------------------------------------------------- | -------------- | ----------------- |
 | At least 7 signers                                      | ✅             | ✅                |
 | At least 51% threshold                                  | ✅             | ❌                |
-| At least 50% non-team signers                           | ✅             | ✅                |
-| Signers are publicly announced (with name or pseudonym) | ✅             | ✅                |
+| At least 50% non-insiders signers                       | ✅             | ✅                |
+| Signers are publicly announced (with name or pseudonym) | ✅             | ❌                |
