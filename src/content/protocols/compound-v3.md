@@ -65,7 +65,7 @@ Nonetheless, compound is supported on third-party apps like DeFiSaver. These app
 
 ## Conclusion
 
-The Compound-v3 Ethereum mainnet protocol achieves Low decentralization scores for its _Upgradeability_, _Autonomy_ and _Exit Window_ dimensions. It thus ranks Stage 0.
+The Compound-v3 Ethereum mainnet protocol achieves High centralization risk scores for its _Upgradeability_, _Autonomy_ and _Exit Window_ dimensions. It thus ranks Stage 0.
 
 The protocol could reach Stage 1 by 1) adopting a _Security Council_ setup for the `ProposalGuardian` and `PauseGuardian` multisig accounts, and 2) implementing validity checks and a fallback mechanism around the Chainlink oracle (or Chainlink adopting a _Security Council_ setup for its own multisig account).
 
@@ -80,6 +80,8 @@ Below is an overview of the contracts from the Compound V3 protocol.
 ## Contracts
 
 ⚠️ During our analysis, we noticed many of the contract addresses listed in the [official documentation](https://docs.compound.finance/) are out of date. This is most likely explained by the high frequency of updates to the implementation contracts. The list below was last updated on the 20th of February 2025.
+
+#
 
 | Contract Name                      | Address                                                                                                               |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -215,11 +217,11 @@ The process is illustrated below.
 # Security Council
 
 A security council called `Pause Guardian` has the power to pause all deposits, withdrawals, and transfers
-in the protocol. The guardian is currently a 4/8 multisig made of Compound DAO community members. The signers are announced [here](https://www.comp.xyz/t/community-multisig-4-of-6-deployment/134/18). The same multisig is also `Proposal Guardian` and has the power to cancel Governance Proposals before their executions.
+in the protocol. The guardian is currently a 4/8 multisig made of Compound DAO community members. The signers announced [on the governance forum](https://www.comp.xyz/t/community-multisig-4-of-6-deployment/134/18) do not match the current [signers set](https://etherscan.io/address/0xbbf3f1421D886E9b2c5D716B5192aC998af2012c#readProxyContract#F9) . The same multisig is also `Proposal Guardian` and has the power to cancel Governance Proposals before their executions.
 
 | Requirement                                             | Pause Guardian | Proposal Guardian |
 | ------------------------------------------------------- | -------------- | ----------------- |
 | At least 7 signers                                      | ✅             | ✅                |
 | At least 51% threshold                                  | ❌             | ❌                |
-| At least 50% non-team signers                           | ✅             | ✅                |
-| Signers are publicly announced (with name or pseudonym) | ✅             | ✅                |
+| At least 50% non-insider signers                        | ✅             | ✅                |
+| Signers are publicly announced (with name or pseudonym) | ❌             | ❌                |
