@@ -10,14 +10,13 @@ reasons: []
 risks: ["M", "H", "H", "H", "L"]
 author: ["mmilien_"]
 submission_date: "2025-02-18"
-publish_date: "1970-01-01"
-acknowledge_date: "1970-01-01"
+publish_date: "2025-03-17"
 update_date: "1970-01-01"
 ---
 
 # Summary
 
-Compound-v3 is a lending protocol that accepts a base asset as liquidity and allows borrowing this bas asset with a variety of other assets as collateral. Multiple base assets are supported such as USDC.e, USDC, WETH, and USDT. Each base asset represents an isolated lending market managed by a separate instance of the protocol. Compound governance is able to update various parameters for each of these markets.
+Compound-v3 is a lending protocol that accepts a base asset as liquidity and allows borrowing this base asset with a variety of other assets as collateral. Multiple base assets are supported such as USDC.e, USDC, WETH, and USDT. Each base asset represents an isolated lending market managed by a separate instance of the protocol. Compound governance is able to update various parameters for each of these markets.
 
 # Overview
 
@@ -79,11 +78,11 @@ Below is an overview of the contracts from the Compound V3 protocol.
 
 ![Overview of the compound protocol](./diagrams/compound-v3-arbitrum-overview.png)
 
+## Contracts
+
 ⚠️ During our analysis, we noticed many of the contract addresses listed in the [official documentation](https://docs.compound.finance/) are out of date. This is most likely explained by the high frequency of updates to the implementation contracts. The list below was last updated on the 20th of February 2025.
 
 <br>
-
-## Contracts
 
 | Contract Name                    | Address                                                                                                              |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
@@ -189,10 +188,12 @@ The Chainlink oracle system itself is upgradeable potentially resulting in the p
 
 ## Upgrade process
 
-Any market parameter change requires a new `Comet` deployment. The process is as follows:
+Any market parameter change requires a new `Comet` deployment. Governance decisions are taken on Ethereum mainnet and sent out through Arbitrum's
+cross-chain messaging system. The upgrade process is as follows:
 
-1.  new parameters are set using setters in the `Configurator` contract.
-2.  the `ProxyAdmin` contract uses `deployAndUpgradeTo`:
+1.  Governance approved upgrade is sent out through the cross-chain messaging system and subject to an additional 1-day delay.
+1.  New parameters are set using setters in the `Configurator` contract.
+1.  The `ProxyAdmin` contract uses `deployAndUpgradeTo`:
     1. Deploys a new comet contract through the `Configurator`, which uses the `CometFactory`.
     2. Updates the corresponding `Comet Proxy` to point to this newly deployed contract.
 
@@ -201,7 +202,7 @@ This is because the `upgrade` function can still be called by the DAO in additio
 
 The process is illustrated below.
 
-![Update scheme for a comet contract](./diagrams/compound-v3-update.png)
+![Update scheme for a comet contract](./diagrams/compound-v3-update-arbitrum.png)
 
 # Security Council
 
