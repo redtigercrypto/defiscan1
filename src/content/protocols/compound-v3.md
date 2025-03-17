@@ -11,7 +11,6 @@ risks: ["L", "H", "H", "H", "L"]
 author: ["mmilien_"]
 submission_date: "2025-01-26"
 publish_date: "1970-01-01"
-acknowledge_date: "1970-01-01"
 update_date: "1970-01-01"
 ---
 
