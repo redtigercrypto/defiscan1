@@ -81,7 +81,7 @@ Below is an overview of the contracts from the Compound V3 protocol.
 
 ⚠️ During our analysis, we noticed many of the contract addresses listed in the [official documentation](https://docs.compound.finance/) are out of date. This is most likely explained by the high frequency of updates to the implementation contracts. The list below was last updated on the 20th of February 2025.
 
-#
+<br>
 
 | Contract Name                      | Address                                                                                                               |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -218,6 +218,8 @@ The process is illustrated below.
 
 A security council called `Pause Guardian` has the power to pause all deposits, withdrawals, and transfers
 in the protocol. The guardian is currently a 4/8 multisig made of Compound DAO community members. The signers announced [on the governance forum](https://www.comp.xyz/t/community-multisig-4-of-6-deployment/134/18) do not match the current [signers set](https://etherscan.io/address/0xbbf3f1421D886E9b2c5D716B5192aC998af2012c#readProxyContract#F9) . The same multisig is also `Proposal Guardian` and has the power to cancel Governance Proposals before their executions.
+
+<br>
 
 | Requirement                                             | Pause Guardian | Proposal Guardian |
 | ------------------------------------------------------- | -------------- | ----------------- |
