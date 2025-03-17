@@ -81,6 +81,8 @@ Below is an overview of the contracts from the Compound V3 protocol.
 
 ⚠️ During our analysis, we noticed many of the contract addresses listed in the [official documentation](https://docs.compound.finance/) are out of date. This is most likely explained by the high frequency of updates to the implementation contracts. The list below was last updated on the 20th of February 2025.
 
+<br>
+
 ## Contracts
 
 | Contract Name                    | Address                                                                                                              |
@@ -206,6 +208,8 @@ The process is illustrated below.
 A security council called `Pause Guardian` has the power to pause all deposits, withdrawals, and transfers
 in the Arbitrum `Comet` contracts. The guardian is currently a 4/7 multisig made of a diverse set of signers including more than 50% outsiders (community members, non-affiliated entities). The signers are announced [here](https://www.comp.xyz/t/community-multisig-4-of-6-deployment/134/18).
 A `Proposal Guardian` on Ethereum Mainnet has the power to cancel Governance Proposals before their executions. It is composed of a 4/8 multisig made of the same entities announced for the `Pause Guardian`, with one additional signer that prevents the `Proposal Guardian` to qualify as a security council according to our requirements. Its signers set however does not match the announced signers.
+
+<br>
 
 | Requirement                                             | Pause Guardian | Proposal Guardian |
 | ------------------------------------------------------- | -------------- | ----------------- |
