@@ -10,13 +10,13 @@ reasons: []
 risks: ["L", "H", "H", "H", "L"]
 author: ["mmilien_"]
 submission_date: "2025-01-26"
-publish_date: "1970-01-01"
+publish_date: "2025-03-17"
 update_date: "1970-01-01"
 ---
 
 # Summary
 
-Compound-v3 is a lending protocol that accepts a base asset as liquidity and allows borrowing this bas asset with a variety of other assets as collateral. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Each base asset represents an isolated lending market managed by a separate instance of the protocol. Compound governance is able to update various parameters for each of these markets.
+Compound-v3 is a lending protocol that accepts a base asset as liquidity and allows borrowing this base asset with a variety of other assets as collateral. Multiple base assets are supported such as USDC, WETH, USDT, wstETH, and USDS. Each base asset represents an isolated lending market managed by a separate instance of the protocol. Compound governance is able to update various parameters for each of these markets.
 
 # Overview
 
