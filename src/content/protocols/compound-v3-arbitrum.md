@@ -10,7 +10,7 @@ reasons: []
 risks: ["M", "H", "H", "H", "L"]
 author: ["mmilien_"]
 submission_date: "2025-02-18"
-publish_date: "2025-03-17"
+publish_date: "2025-03-18"
 update_date: "1970-01-01"
 ---
 
@@ -216,5 +216,5 @@ A `Proposal Guardian` on Ethereum Mainnet has the power to cancel Governance Pro
 | ------------------------------------------------------- | -------------- | ----------------- |
 | At least 7 signers                                      | ✅             | ✅                |
 | At least 51% threshold                                  | ✅             | ❌                |
-| At least 50% non-insiders signers                       | ✅             | ✅                |
+| At least 50% non-insiders signers                       | ❌             | ❌                |
 | Signers are publicly announced (with name or pseudonym) | ❌             | ❌                |

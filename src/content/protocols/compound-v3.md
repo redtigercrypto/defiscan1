@@ -224,5 +224,5 @@ in the protocol. The guardian is currently a 4/8 multisig made of Compound DAO c
 | ------------------------------------------------------- | -------------- | ----------------- |
 | At least 7 signers                                      | ✅             | ✅                |
 | At least 51% threshold                                  | ❌             | ❌                |
-| At least 50% non-insider signers                        | ✅             | ✅                |
+| At least 50% non-insider signers                        | ❌             | ❌                |
 | Signers are publicly announced (with name or pseudonym) | ❌             | ❌                |
