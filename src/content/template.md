@@ -1,14 +1,14 @@
 ---
-protocol: "name of the protocol appended by the version if multiple versions exist (use an '-' and no whitespace)"
-website: "https://..."
-x: "https://x.com/projecthandle"
-github: ["https://github.com/projectgithub"]
-defillama_slug: ["the slug used by https://defillama.com"]
-chain: "the name of the chain on which the protocol is deployed"
-stage: 0
+protocol: "panoptic-1.1"
+website: "https://panoptic.xyz"
+x: "https://x.com/Panoptic_xyz"
+github: ["https://github.com/panoptic-labs/panoptic-v1-core"]
+defillama_slug: ["panoptic"]
+chain: "ethereum"
+stage: 2
 reasons: ["remove", "if none"]
 risks: ["x", "x", "x", "x", "x"]
-author: ["author-1", "author-2"]
+author: ["redtiger"]
 submission_date: "1970-01-01"
 publish_date: "1970-01-01"
 update_date: "1970-01-01"
@@ -16,15 +16,18 @@ update_date: "1970-01-01"
 
 # Summary
 
-Add a summary of the protocols. What is it? What does it do? etc.
+The Panoptic protocol consists of smart contracts on the Ethereum blockchain that handle the minting, trading, and market-making of perpetual put and call options.
+
+Panoptic combine the decentralized nature of Automated Market Makers and permissionless liquidity providing in Uniswap.
+
 
 # Overview
 
 ## Chain
 
-See http://defiscan.info/learn-more#chain for more guidance.
+Ethereum
 
-> Chain score: Low/Medium/High
+> Chain score: Low
 
 ## Upgradeability
 
